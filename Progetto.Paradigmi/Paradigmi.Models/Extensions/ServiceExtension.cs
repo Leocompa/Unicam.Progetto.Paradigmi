@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Paradigmi.Models.Context;
+using Paradigmi.Models.Repositories;
 
 namespace Paradigmi.Models.Extensions;
 
@@ -13,7 +14,7 @@ public static class ServiceExtension
         {
             conf.UseSqlServer(configuration.GetConnectionString("MyDbContext"));
         });
-        services.AddScoped<>();
+        services.AddScoped<UtenteRepository>();
         return services;
     }
 }
