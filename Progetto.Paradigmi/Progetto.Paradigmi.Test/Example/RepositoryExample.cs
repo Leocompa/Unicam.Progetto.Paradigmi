@@ -20,16 +20,16 @@ public class RepositoryExample : IProject
         var portataRepo = new PortataRepository(ctx);
 
         var utente = utenteRepo.Ottieni("Umbe");
-        var ordine = ordineRepo.Ottieni(1);
+        var ordine = ordineRepo.Ottieni(1L);
         var portata = portataRepo.Ottieni(1);
         
-        utente.Name = "nuovo";
+        utente.Nome = "nuovo";
         utenteRepo.Modifica(utente);
         utenteRepo.Save();
 
         var nuovoUtente = new Utente();
         nuovoUtente.Ruolo = Ruolo.Cliente;
-        nuovoUtente.Name = "Mario";
+        nuovoUtente.Nome = "Mario";
         nuovoUtente.Cognome = "Bianchi";
         //nuovoDipendente.IdAzienda = 5;
 

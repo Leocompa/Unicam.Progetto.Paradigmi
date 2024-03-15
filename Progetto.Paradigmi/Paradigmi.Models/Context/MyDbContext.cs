@@ -23,7 +23,7 @@ public class MyDbContext : DbContext
     {
         if (!optionsBuilder.IsConfigured)
         {                
-           optionsBuilder.UseSqlServer( "Server=localhost;Database=ProgettoParadigmi;User Id=paradigmi;Password=unicamParadigmi!;Encrypt=False;");
+           optionsBuilder.UseSqlServer( "Server=localhost;Database=ProgettoParadigmi;User Id=paradigmi;Password=unicamParadigmi1!;Encrypt=False;");
         }
     }
 

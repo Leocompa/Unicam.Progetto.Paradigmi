@@ -10,7 +10,7 @@ namespace Paradigmi.Models.Configurations;
         {
             builder.ToTable("Utenti");
             builder.HasKey(p => p.Email);
-            builder.Property(p => p.Name)
+            builder.Property(p => p.Nome)
                 .HasMaxLength(100);
             builder.Property(p => p.Cognome).HasMaxLength(100);
             builder.Property(p => p.Ruolo).IsRequired();
