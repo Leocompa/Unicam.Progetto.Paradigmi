@@ -30,6 +30,7 @@ public class MyDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        /*
         modelBuilder.Entity<Address>()
             .HasKey(a => a.AddressId);
         
@@ -37,10 +38,14 @@ public class MyDbContext : DbContext
             .HasConversion(p => p.Nome,
                 nome=> GetPortataByNome(nome)
             );
+        
+        
         modelBuilder.Entity<Ordine>().Property(p => p.Utente).HasConversion(utente => utente.Email,
             email => Utenti.FirstOrDefault(utente => utente.Email == email));
+            */
         modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);
         base.OnModelCreating(modelBuilder);
+        
     }
     
     // Metodo per ottenere una Portata dal nome

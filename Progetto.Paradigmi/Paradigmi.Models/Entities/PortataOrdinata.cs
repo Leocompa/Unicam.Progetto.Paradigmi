@@ -1,18 +1,16 @@
-﻿namespace Paradigmi.Models.Entities;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Paradigmi.Models.Entities;
 
 public class PortataOrdinata
 {
-    public int id { get; set; }
-    public Portata Piatto { get; set; }
+
+    public int OrdinazioneId { get; set; } 
+
+    public string PortataNome { get; set; } 
     public int Quantita { get; set; }
     
-    public PortataOrdinata(Portata piatto, int quantita)
-    {
-        Piatto = piatto;
-        Quantita = quantita;
-    }
-    public PortataOrdinata()        // Costruttore senza parametri
-    {
-
-    }
+    public Ordine Ordine { get; set; }
+    public Portata Portata { get; set; } 
 }

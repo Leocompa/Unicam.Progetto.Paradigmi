@@ -10,7 +10,8 @@ namespace Paradigmi.Models.Configurations;
         {
             builder.ToTable("Portate");
             builder.HasKey(p => p.Nome);
-            builder.Property(p => p.Prezzo).IsRequired();
+            builder.Property(p => p.Nome).IsRequired().HasMaxLength(100);
+            builder.Property(p => p.Prezzo).IsRequired().HasColumnType("decimal(10, 2)");
             builder.Property(p => p.Tipo).IsRequired();
         }
 }
