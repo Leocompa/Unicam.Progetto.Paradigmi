@@ -21,18 +21,38 @@ public class RepositoryExample : IProject
 
         var utente = utenteRepo.Ottieni("Umbe");
         var ordine = ordineRepo.Ottieni(1L);
-        var portata = portataRepo.Ottieni(1);
-        
+        var portata = portataRepo.Ottieni("Pasta");
+        /*
         utente.Nome = "nuovo";
         utenteRepo.Modifica(utente);
         utenteRepo.Save();
+        */
 
         var nuovoUtente = new Utente();
         nuovoUtente.Ruolo = Ruolo.Cliente;
         nuovoUtente.Nome = "Mario";
         nuovoUtente.Cognome = "Bianchi";
-        //nuovoDipendente.IdAzienda = 5;
+        nuovoUtente.Email = "aaa@mail.com";
+        nuovoUtente.Password= "NuovaPassw";
 
+        utenteRepo.Aggiungi(nuovoUtente);
+        utenteRepo.Save();
+        
+        var nuovaPortata = new Portata();
+        nuovoUtente.Ruolo = Ruolo.Cliente;
+        nuovoUtente.Nome = "Mario";
+        nuovoUtente.Cognome = "Bianchi";
+        nuovoUtente.Email = "aaa@mail.com";
+        nuovoUtente.Password= "NuovaPassw";
+
+        utenteRepo.Aggiungi(nuovoUtente);
+        utenteRepo.Save();
+        
+        
+        var nuovaPortata2 = new Portata();
+        nuovoUtente.Ruolo = Ruolo.Cliente;
+        nuovoUtente.Nome = "Mario";
+        nuovoUtente.Cognome = "Bianchi";
         nuovoUtente.Email = "aaa@mail.com";
         nuovoUtente.Password= "NuovaPassw";
 
