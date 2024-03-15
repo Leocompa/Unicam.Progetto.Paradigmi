@@ -6,5 +6,5 @@ public class Ordine
     public DateTime DataOrdine { get; set; }
     public long NumeroOrdine { get; set; }
     public Address IndirizzoConsegna { get; set; } = null!;
-    public ICollection<Portata> Portate { get; set; } = null!;
+    public ICollection<PortataOrdinata> Portate { get; set; } = null!;
 }

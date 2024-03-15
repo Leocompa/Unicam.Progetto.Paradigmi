@@ -14,6 +14,11 @@ namespace Paradigmi.Models.Configurations;
              //   .HasMaxLength(100);
             builder.Property(p => p.DataOrdine).HasMaxLength(100);
           //  builder.Property(p => p.IndirizzoConsegna);
-           // builder.Property(p => p.Portate).IsRequired();
+          /*
+          builder.HasMany(ordine => ordine.Portate)
+              .WithOne(ordinata => ordinata.Ordine)
+              .HasForeignKey(ordinata =>  ordinata.Ordine);
+*/
+
         }
 }

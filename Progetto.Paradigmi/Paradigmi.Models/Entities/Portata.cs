@@ -5,5 +5,6 @@ public class Portata
     public string Nome { get; set; } = String.Empty;
     public double Prezzo { get; set; }
     public Tipologia Tipo { get; set; } 
+    public int Quantita { get; set; } 
 
 }

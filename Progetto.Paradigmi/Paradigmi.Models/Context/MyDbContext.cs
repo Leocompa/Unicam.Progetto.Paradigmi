@@ -18,6 +18,7 @@ public class MyDbContext : DbContext
     public DbSet<Utente> Utenti { get; set; }
     public DbSet<Ordine> Ordini { get; set; }
     public DbSet<Portata> Portate { get; set; }
+    public DbSet<PortataOrdinata> PortateOrdinate { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -32,7 +33,18 @@ public class MyDbContext : DbContext
         modelBuilder.Entity<Address>()
             .HasKey(a => a.AddressId);
         
+        modelBuilder.Entity<PortataOrdinata>().Property(p => p.Piatto)
+            .HasConversion(p => p.Nome,
+                nome=> GetPortataByNome(nome)
+            );
+        
         modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);
         base.OnModelCreating(modelBuilder);
+    }
+    
+    // Metodo per ottenere una Portata dal nome
+    public Portata GetPortataByNome(string nome)
+    {
+        return Portate.FirstOrDefault(p => p.Nome == nome);
     }
 }
