@@ -12,4 +12,9 @@
       <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.3" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Paradigmi.Abstraction\Paradigmi.Abstraction.csproj" />
+      <ProjectReference Include="..\Progetto.Paradigmi.Test\Progetto.Paradigmi.Test.csproj" />
+    </ItemGroup>
+
 </Project>

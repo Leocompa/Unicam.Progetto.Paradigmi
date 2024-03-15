@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Paradigmi.Application", "Pa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Paradigmi.Web", "Paradigmi.Web\Paradigmi.Web.csproj", "{3B7107CA-51C4-4A2A-97FC-3315F3C43889}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Progetto.Paradigmi.Test", "Progetto.Paradigmi.Test\Progetto.Paradigmi.Test.csproj", "{D19BDDC9-E23B-450D-9BEC-3ECA821818BB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{3B7107CA-51C4-4A2A-97FC-3315F3C43889}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3B7107CA-51C4-4A2A-97FC-3315F3C43889}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3B7107CA-51C4-4A2A-97FC-3315F3C43889}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D19BDDC9-E23B-450D-9BEC-3ECA821818BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D19BDDC9-E23B-450D-9BEC-3ECA821818BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D19BDDC9-E23B-450D-9BEC-3ECA821818BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D19BDDC9-E23B-450D-9BEC-3ECA821818BB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

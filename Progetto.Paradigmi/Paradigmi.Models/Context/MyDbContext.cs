@@ -22,13 +22,16 @@ public class MyDbContext : DbContext
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         if (!optionsBuilder.IsConfigured)
-        {
-            optionsBuilder.UseSqlServer("");//TODO stringa di connessione
+        {                
+           optionsBuilder.UseSqlServer( "Server=localhost;Database=ProgettoParadigmi;User Id=paradigmi;Password=unicamParadigmi!;Encrypt=False;");
         }
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Address>()
+            .HasKey(a => a.AddressId);
+        
         modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);
         base.OnModelCreating(modelBuilder);
     }

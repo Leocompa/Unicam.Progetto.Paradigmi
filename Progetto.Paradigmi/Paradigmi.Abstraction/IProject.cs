@@ -1,7 +1,8 @@
-﻿namespace Paradigmi.Application;
-
-public interface IProject
-{
-    void RunProject();
-    Task RunProjectAsync();
+﻿namespace Paradigmi.Abstraction
+{ 
+    public interface IProject
+    {
+        void RunProject();
+        Task RunProjectAsync();
+    }
 }
