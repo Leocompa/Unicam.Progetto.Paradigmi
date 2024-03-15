@@ -13,6 +13,7 @@ public class PortataOrdinataConfiguration : IEntityTypeConfiguration<PortataOrdi
         builder.HasKey(p => p.id);
         builder.Property(p => p.Piatto);
         builder.Property(p => p.Quantita).IsRequired();
+        
       /*
         builder.HasOne(portataOrdinata => portataOrdinata.Ordine)
             .WithMany(ordine => ordine.Portate)

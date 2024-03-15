@@ -21,7 +21,7 @@ public class OrdineRepository : GenericRepository<Ordine>
             query = query.Where(w => w.Utente.Equals(utente)).Where(or =>
                 or.DataOrdine.CompareTo(dataInizio) >= 0 && or.DataOrdine.CompareTo(dataFine) <= 0);
             totalNum = query.Count();
-            return query.OrderBy(ordine => ordine.NumeroOrdine).Skip(from).Take(num).ToList();
+            return query.OrderBy(ordine => ordine.NOrdine).Skip(from).Take(num).ToList();
         }
         else
         {
@@ -29,7 +29,7 @@ public class OrdineRepository : GenericRepository<Ordine>
             query = query.Where(
                 or => or.DataOrdine.CompareTo(dataInizio) >= 0 && or.DataOrdine.CompareTo(dataFine) <= 0);
             totalNum = query.Count();
-            return query.OrderBy(ordine => ordine.NumeroOrdine).Skip(from).Take(num).ToList();
+            return query.OrderBy(ordine => ordine.NOrdine).Skip(from).Take(num).ToList();
 
         }
     }
@@ -40,9 +40,9 @@ public class OrdineRepository : GenericRepository<Ordine>
     public List<Ordine> GetOrdine(int from, int num, string? filter, out int totalNum)
     {
         var query = _context.Ordini.AsQueryable();
-        if (!string.IsNullOrEmpty(filter)) query = query.Where(w => w.NumeroOrdine.Equals(filter));
+        if (!string.IsNullOrEmpty(filter)) query = query.Where(w => w.NOrdine.Equals(filter));
         totalNum = query.Count();
-        return query.OrderBy(ordine => ordine.NumeroOrdine).Skip(from).Take(num).ToList();
+        return query.OrderBy(ordine => ordine.NOrdine).Skip(from).Take(num).ToList();
 
     }
 }

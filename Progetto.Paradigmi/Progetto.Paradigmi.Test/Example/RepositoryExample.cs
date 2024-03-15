@@ -18,10 +18,11 @@ public class RepositoryExample : IProject
         var utenteRepo = new UtenteRepository(ctx);
         var ordineRepo = new OrdineRepository(ctx);
         var portataRepo = new PortataRepository(ctx);
+        //var portataOrdinataRepo = new PortateOrdinateRepository(ctx);
 
-        var utente = utenteRepo.Ottieni("Umbe");
-        var ordine = ordineRepo.Ottieni(1L);
-        var portata = portataRepo.Ottieni("Lasagna");
+        //var utente = utenteRepo.Ottieni("Umbe");
+        //var ordine = ordineRepo.Ottieni(1L);
+        //var portata = portataRepo.Ottieni("Lasagna");
         /*
         utente.Nome = "nuovo";
         utenteRepo.Modifica(utente);
@@ -32,44 +33,44 @@ public class RepositoryExample : IProject
         nuovoUtente.Ruolo = Ruolo.Cliente;
         nuovoUtente.Nome = "Mario";
         nuovoUtente.Cognome = "Bianchi";
-        nuovoUtente.Email = "cccc@mail.com";
+        nuovoUtente.Email = "prova6@mail.com";
         nuovoUtente.Password= "NuovaPassw";
 
         utenteRepo.Aggiungi(nuovoUtente);
         utenteRepo.Save();
         
         var lasagna = new Portata();
-        lasagna.Nome = "Lasagna";
+        lasagna.Nome = "tortelli";
         lasagna.Prezzo =10.50;
         lasagna.Tipo = Tipologia.Primo;
-        lasagna.Quantita= 1;
 
         portataRepo.Aggiungi(lasagna);
         portataRepo.Save();
         
         
         var arrosto = new Portata();
-        arrosto.Nome = "Arrosto";
+        arrosto.Nome = "Arrosti";
         arrosto.Prezzo =13.50;
         arrosto.Tipo = Tipologia.Secondo;
-        arrosto.Quantita= 2;
 
         portataRepo.Aggiungi(arrosto);
         portataRepo.Save();
 
-        var nuovoOrdine = new Ordine();
-        nuovoOrdine.Utente = nuovoUtente;
-        nuovoOrdine.DataOrdine = DateTime.Now;
-        nuovoOrdine.Portate.Add(new PortataOrdinata(lasagna,2));
-        nuovoOrdine.Portate.Add(new PortataOrdinata(arrosto,1));
+        var nuovoOrdine = new Ordine(nuovoUtente,DateTime.Now);
+        nuovoOrdine.Portate = new Dictionary<int, Portata>();
+        nuovoOrdine.Portate.Add(2,lasagna);
+        nuovoOrdine.Portate.Add(1,arrosto);
         
-        var nuovoOrdine2 = new Ordine();
-        nuovoOrdine2.Utente = nuovoUtente;
-        nuovoOrdine2.DataOrdine = DateTime.Now;
-        nuovoOrdine2.Portate.Add(new PortataOrdinata(lasagna,3));
-        nuovoOrdine2.Portate.Add(new PortataOrdinata(arrosto,7));
+        ordineRepo.Aggiungi(nuovoOrdine);
+        ordineRepo.Save();
+
+        var nuovoOrdine2 = new Ordine(nuovoUtente, DateTime.Now);
+        nuovoOrdine2.Portate = new Dictionary<int, Portata>();
+        nuovoOrdine2.Portate.Add(3,lasagna);
+        nuovoOrdine2.Portate.Add(7,arrosto);
         
-        
+        ordineRepo.Aggiungi(nuovoOrdine2);
+        ordineRepo.Save();
         
     }
 
