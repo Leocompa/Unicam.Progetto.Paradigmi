@@ -40,7 +40,7 @@ public class RepositoryExample : IProject
         utenteRepo.Save();
         
         var lasagna = new Portata();
-        lasagna.Nome = "gnocchi aai funghi rossi"+DateTime.Now;
+        lasagna.Nome = "gnocchi ai funghi"+DateTime.Now;
         lasagna.Prezzo =10.50;
         lasagna.Tipo = Tipologia.Primo;
 
@@ -78,7 +78,7 @@ public class RepositoryExample : IProject
         nuovoOrdine2.PortateSelezionate = new List<PortataOrdinata>();
         nuovoOrdine2.PortateSelezionate.Add(new PortataOrdinata()
         {
-            Portata = lasagna,Quantita = 3
+            Portata = lasagna,Quantita = 3,Turno = 2
         });
         nuovoOrdine2.PortateSelezionate.Add(new PortataOrdinata()
         {

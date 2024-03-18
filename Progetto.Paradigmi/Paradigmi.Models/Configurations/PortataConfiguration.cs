@@ -12,6 +12,7 @@ namespace Paradigmi.Models.Configurations;
             builder.HasKey(p => p.Nome);
             builder.Property(p => p.Nome).IsRequired().HasMaxLength(100);
             builder.Property(p => p.Prezzo).IsRequired().HasColumnType("decimal(10, 2)");
-            builder.Property(p => p.Tipo).IsRequired();
+            builder.Property(p => p.Tipo).IsRequired().HasConversion(tipologia =>tipologia.ToString(),
+                (tipo => TipologiaExtensions.AsTipologia(tipo)));
         }
 }

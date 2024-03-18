@@ -11,6 +11,7 @@ public class PortateOrdinateConfiguration : IEntityTypeConfiguration<PortataOrdi
         builder.ToTable("PortateOrdinate");
         builder.HasKey(pq => new { pq.OrdinazioneId, PortataId = pq.PortataNome });
         builder.Property(pq => pq.Quantita).IsRequired();
+        builder.Property(pq => pq.Turno).IsRequired();
 
         builder.HasOne(po => po.Ordine)
             .WithMany(o => o.PortateSelezionate)

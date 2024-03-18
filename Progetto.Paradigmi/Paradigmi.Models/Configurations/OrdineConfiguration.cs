@@ -21,12 +21,12 @@ public class OrdinazioneConfiguration : IEntityTypeConfiguration<Ordine>
             .WithOne(ordinata => ordinata.Ordine)
             .HasForeignKey(pq => pq.OrdinazioneId);
         
-        builder.OwnsOne(o => o.IndirizzoConsegna, a =>
+        builder.OwnsOne(o => o.IndirizzoConsegna, address =>
         {
-            a.Property(a => a.Citta).IsRequired().HasMaxLength(100);
-            a.Property(a => a.Cap).IsRequired().HasMaxLength(10);
-            a.Property(a => a.Via).IsRequired().HasMaxLength(200);
-            a.Property(a => a.Civico).IsRequired().HasMaxLength(10);
+            address.Property(a => a.Citta).IsRequired().HasMaxLength(100);
+            address.Property(a => a.Cap).IsRequired().HasMaxLength(10);
+            address.Property(a => a.Via).IsRequired().HasMaxLength(200);
+            address.Property(a => a.Civico).IsRequired().HasMaxLength(10);
         });
     }
 }

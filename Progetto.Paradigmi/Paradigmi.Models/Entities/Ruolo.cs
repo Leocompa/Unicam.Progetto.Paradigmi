@@ -5,13 +5,11 @@
     {
         Cliente,
         Amministratore
-
-
     }
 
     public static class RuoloExtensions
     {
-        public static Ruolo asRuolo(string ruolo)
+        public static Ruolo AsRuolo(string ruolo)
         {
             if (ruolo.ToLower().Equals("cliente".ToLower()))
                 return Ruolo.Cliente;

@@ -47,10 +47,4 @@ public class MyDbContext : DbContext
         base.OnModelCreating(modelBuilder);
         
     }
-    
-    // Metodo per ottenere una Portata dal nome
-    public Portata GetPortataByNome(string nome)
-    {
-        return Portate.FirstOrDefault(p => p.Nome == nome);
-    }
 }

@@ -15,7 +15,7 @@ namespace Paradigmi.Models.Configurations;
             builder.Property(p => p.Cognome).IsRequired().HasMaxLength(100);
             builder.Property(p => p.Password).IsRequired().HasMaxLength(20);
             builder.Property(p => p.Ruolo).HasConversion(ruolo=>ruolo.ToString(),
-                ruolo=>RuoloExtensions.asRuolo(ruolo)
+                ruolo=>RuoloExtensions.AsRuolo(ruolo)
                 ).IsRequired();
             
         }

@@ -1,10 +1,29 @@
-﻿namespace Paradigmi.Models.Entities;
-
-public enum Tipologia
+﻿namespace Paradigmi.Models.Entities
 {
-    Antipasto,
-    Primo,
-    Secondo,
-    Contorno,
-    Dolce
+    public enum Tipologia
+    {
+        Antipasto,
+        Primo,
+        Secondo,
+        Contorno,
+        Dolce
+    }
+
+    public static class TipologiaExtensions
+    {
+        public static Tipologia AsTipologia(string tipo)
+        {
+            if (tipo.ToLower().Equals("antipasto".ToLower()))
+                return Tipologia.Antipasto;
+            if (tipo.ToLower().Equals("primo".ToLower()))
+                return Tipologia.Primo;
+            if (tipo.ToLower().Equals("secondo".ToLower()))
+                return Tipologia.Secondo;
+            if (tipo.ToLower().Equals("contorno".ToLower()))
+                return Tipologia.Contorno;
+            if (tipo.ToLower().Equals("dolce".ToLower()))
+                return Tipologia.Dolce;
+            throw new ArgumentException(" tipologia non valida: " + tipo);
+        }
+    }
 }
