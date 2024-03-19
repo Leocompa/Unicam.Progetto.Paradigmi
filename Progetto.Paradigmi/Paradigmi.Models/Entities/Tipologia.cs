@@ -6,7 +6,8 @@
         Primo,
         Secondo,
         Contorno,
-        Dolce
+        Dolce,
+        Vino
     }
 
     public static class TipologiaExtensions
@@ -23,6 +24,8 @@
                 return Tipologia.Contorno;
             if (tipo.ToLower().Equals("dolce".ToLower()))
                 return Tipologia.Dolce;
+            if (tipo.ToLower().Equals("vino".ToLower()))
+                return Tipologia.Vino;
             throw new ArgumentException(" tipologia non valida: " + tipo);
         }
     }

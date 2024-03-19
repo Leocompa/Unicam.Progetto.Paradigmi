@@ -43,34 +43,23 @@ public class RepositoryExample : IProject
 
         List<PortataOrdinata> nuovaPortataOrdinata = new List<PortataOrdinata>();
         
-        var primo1 = new Portata("Gnocchi", 10.50, Tipologia.Primo);
-        portataRepo.Aggiungi(primo1);
-        portataRepo.Save();
-        
-        var secondo = new Portata("Spezzatino", 13.50, Tipologia.Secondo);
-        portataRepo.Aggiungi(secondo);
-        portataRepo.Save();
-
-        var contorno = new Portata("Insalata", 5, Tipologia.Contorno);
-        portataRepo.Aggiungi(contorno);
-        portataRepo.Save();
-
-        var antipasto = new Portata("Tagliere", 12, Tipologia.Antipasto);
-        portataRepo.Aggiungi(antipasto);
-        portataRepo.Save();
-
-        var dolce = new Portata("Tiramisu", 5.5, Tipologia.Dolce);
-        portataRepo.Aggiungi(dolce);
-        portataRepo.Save();
-        
-        var primo2 = new Portata("Tagliatelle", 12.5000011451, Tipologia.Primo);
-        portataRepo.Aggiungi(primo2);
-        portataRepo.Save();
+        var primo1 = CreaPortata("Gnocchi", 10.50, Tipologia.Primo,portataRepo);
+        var secondo = CreaPortata("Spezzatino", 13.50, Tipologia.Secondo,portataRepo);
+        var contorno = CreaPortata("Insalata", 5, Tipologia.Contorno,portataRepo);
+        var antipasto = CreaPortata("Tagliere", 12, Tipologia.Antipasto,portataRepo);
+        var dolce = CreaPortata("Tiramisu", 5.5, Tipologia.Dolce,portataRepo);
+        var primo2 = CreaPortata( "Tagliatelle", 12.5, Tipologia.Primo,portataRepo);
+        var vino = CreaPortata("Vino", 10, Tipologia.Vino,portataRepo);
         
         nuovaPortataOrdinata.Add(new PortataOrdinata
         {
+            Portata = vino,
+            Quantita = 1
+        });
+        nuovaPortataOrdinata.Add(new PortataOrdinata
+        {
             Portata = primo1,
-            Quantita = 3
+            Quantita = 2
         });
         
         nuovaPortataOrdinata.Add(new PortataOrdinata
@@ -101,7 +90,7 @@ public class RepositoryExample : IProject
             Portata = primo2
         });
 
-        double costoTotale = 0;
+        double costoTotale;
         
         int idOrdine = ordineService.AddOrdine(nuovoUtente, nuovaPortataOrdinata, out costoTotale);
         
@@ -109,6 +98,14 @@ public class RepositoryExample : IProject
         ordineRepo.Aggiungi(ordineService.GetOrdine(idOrdine)!);
         ordineRepo.Save();
         
+    }
+
+    private Portata CreaPortata(String nome,double prezzo, Tipologia tipo,PortataRepository portataRepo)
+    {
+        Portata portata = new Portata(nome, prezzo, tipo);
+        portataRepo.Aggiungi(portata);
+        portataRepo.Save();
+        return portata;
     }
 
     public Task RunProjectAsync()

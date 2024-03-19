@@ -7,6 +7,9 @@ namespace Paradigmi.Application.Services
     public class OrdineService : IOrdineService
     {
         private readonly OrdineRepository _ordineRepository;
+        
+        //TODO file config
+        private readonly HashSet<Tipologia> _keyScontabili = new HashSet<Tipologia>() { Tipologia.Antipasto, Tipologia.Primo,Tipologia.Secondo,Tipologia.Contorno,Tipologia.Dolce };
 
         public OrdineService(OrdineRepository ordineRepository)
         {
@@ -50,7 +53,10 @@ namespace Paradigmi.Application.Services
                 }
             }
 
-            int nPastiCompleti = elencoPortate.Values.Min(p => p.Count);
+            int nPastiCompleti = elencoPortate
+                .Where(kv => _keyScontabili.Contains(kv.Key)) 
+                .Select(kv => kv.Value.Count) 
+                .Min();
 
             double costo = 0;
             foreach (var portate in elencoPortate.Values)
@@ -58,18 +64,19 @@ namespace Paradigmi.Application.Services
                 costo += ScontaCategoria(portate, nPastiCompleti);
             }
             
-            costoTotale =  Math.Round(costo, 2); // Limita il risultato a due cifre decimali
+            costoTotale =  Math.Round(costo, 2); 
 
             return ordine.NumeroOrdine;
         }
 
         private double ScontaCategoria(List<Portata> portate, int amount)
         {
-            double costo = portate
+            var costoTotale = portate
                 .OrderByDescending(p => p.Prezzo)
-                .Select((p, index) => index >= amount ? p.Prezzo : p.Prezzo * 0.9) // Applica lo sconto del 10% se indice < amount
-                .Sum();
-            return costo;
+                .Select((p, index) => new { Portata = p, IsScontabile = index < amount && _keyScontabili.Contains(p.Tipo) })
+                .Sum(p => p.IsScontabile ? p.Portata.Prezzo * 0.9 : p.Portata.Prezzo);
+            
+            return costoTotale;
         }
     }
 }

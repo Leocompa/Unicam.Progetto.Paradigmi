@@ -22,7 +22,7 @@ public abstract class GenericRepository<T> where T : class
         _context.Entry(entity).State = EntityState.Modified;
     }
 
-    public T Ottieni(object id)
+    public T? Ottieni(object id)
     {
         return _context.Set<T>().Find(id);
     }
