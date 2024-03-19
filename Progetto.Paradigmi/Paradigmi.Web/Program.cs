@@ -1,18 +1,19 @@
-﻿
+﻿using Microsoft.AspNetCore.Builder;
 using Paradigmi.Abstraction;
+using Paradigmi.Application.Extensions;
+using Paradigmi.Models.Extensions;
+using Paradigmi.Web.Extensions;
 using Progetto.Paradigmi.Test.Example;
 
-var examples = new List<IProject>();
-/*examples.Add(new InizialializzazioneClassiExample());
-examples.Add(new GestioneEventiExample());*/
-examples.Add(new RepositoryExample());
-//examples.Add(new JsonSerializerExample());
+var builder = WebApplication.CreateBuilder(args);
 
-foreach (var example in examples)
-{
-    //InizialializzazioneClassiExample test = (InizialializzazioneClassiExample)example;
-    example.RunProject();
-}
+builder.Services
+    .AddWebServices(builder.Configuration)
+    .AddApplicationServices(builder.Configuration)
+    .AddModelServices(builder.Configuration);
 
+var app = builder.Build();
 
-Console.ReadLine();
+app.AddWebMiddleware().AddApplicationMiddleware();
+
+app.Run();

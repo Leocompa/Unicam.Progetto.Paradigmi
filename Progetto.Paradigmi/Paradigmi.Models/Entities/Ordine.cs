@@ -11,7 +11,6 @@ public class Ordine
     public int NumeroOrdine { get; set; }
     public Address IndirizzoConsegna { get; set; } = null!;
     
-    
     public ICollection<PortataOrdinata> PortateSelezionate { get; set; } = null!;
     public Utente Utente { get; set; } = null!;
 }

@@ -8,12 +8,16 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
+      <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.3" />
       <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.3" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.3" />
+      <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\Paradigmi.Abstraction\Paradigmi.Abstraction.csproj" />
+      <ProjectReference Include="..\Paradigmi.Application\Paradigmi.Application.csproj" />
       <ProjectReference Include="..\Progetto.Paradigmi.Test\Progetto.Paradigmi.Test.csproj" />
     </ItemGroup>
 
