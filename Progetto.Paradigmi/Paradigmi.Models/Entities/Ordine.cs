@@ -7,7 +7,6 @@ public class Ordine
     
     public string ClienteEmail { get; set; } = String.Empty;
     public DateTime DataOrdine { get; set; }
-
     public int NumeroOrdine { get; set; }
     public Address IndirizzoConsegna { get; set; } = null!;
     

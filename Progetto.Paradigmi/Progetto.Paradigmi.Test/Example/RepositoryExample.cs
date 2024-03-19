@@ -1,4 +1,5 @@
 ﻿using Paradigmi.Abstraction;
+using Paradigmi.Application.Services;
 using Paradigmi.Models.Context;
 using Paradigmi.Models.Entities;
 using Paradigmi.Models.Repositories;
@@ -18,6 +19,7 @@ public class RepositoryExample : IProject
         var utenteRepo = new UtenteRepository(ctx);
         var ordineRepo = new OrdineRepository(ctx);
         var portataRepo = new PortataRepository(ctx);
+        var ordineService = new OrdineService(ordineRepo);
 /*
         var utente = utenteRepo.Ottieni("Umbe");
         var ordine = ordineRepo.Ottieni(1L);
@@ -38,55 +40,69 @@ public class RepositoryExample : IProject
 
         utenteRepo.Aggiungi(nuovoUtente);
         utenteRepo.Save();
-        
-        var lasagna = new Portata();
-        lasagna.Nome = "gnocchi ai funghi"+DateTime.Now;
-        lasagna.Prezzo =10.50;
-        lasagna.Tipo = Tipologia.Primo;
 
-        portataRepo.Aggiungi(lasagna);
+        List<PortataOrdinata> nuovaPortataOrdinata = new List<PortataOrdinata>();
+        
+        var primo1 = new Portata("Gnocchi", 10.50, Tipologia.Primo);
+        portataRepo.Aggiungi(primo1);
         portataRepo.Save();
         
-        
-        var arrosto = new Portata();
-        arrosto.Nome = "Spezzatino di Manzo"+DateTime.Now;
-        arrosto.Prezzo =13.50;
-        arrosto.Tipo = Tipologia.Secondo;
-
-        portataRepo.Aggiungi(arrosto);
+        var secondo = new Portata("Spezzatino", 13.50, Tipologia.Secondo);
+        portataRepo.Aggiungi(secondo);
         portataRepo.Save();
 
-        var nuovoOrdine = new Ordine();
-        nuovoOrdine.Utente = nuovoUtente;
-        nuovoOrdine.DataOrdine = DateTime.Now;
-        nuovoOrdine.PortateSelezionate = new List<PortataOrdinata>();
-        nuovoOrdine.PortateSelezionate.Add(new PortataOrdinata()
-        {
-            Portata = lasagna,Quantita = 2
-        });
-        nuovoOrdine.PortateSelezionate.Add(new PortataOrdinata()
-        {
-            Portata = arrosto,Quantita = 1
-        });
+        var contorno = new Portata("Insalata", 5, Tipologia.Contorno);
+        portataRepo.Aggiungi(contorno);
+        portataRepo.Save();
+
+        var antipasto = new Portata("Tagliere", 12, Tipologia.Antipasto);
+        portataRepo.Aggiungi(antipasto);
+        portataRepo.Save();
+
+        var dolce = new Portata("Tiramisu", 5.5, Tipologia.Dolce);
+        portataRepo.Aggiungi(dolce);
+        portataRepo.Save();
         
-        ordineRepo.Aggiungi(nuovoOrdine);
-        ordineRepo.Save();
+        var primo2 = new Portata("Tagliatelle", 12.50, Tipologia.Primo);
+        portataRepo.Aggiungi(primo2);
+        portataRepo.Save();
         
-        var nuovoOrdine2 = new Ordine();
-        nuovoOrdine2.Utente = nuovoUtente;
-        nuovoOrdine2.DataOrdine = DateTime.Now;
-        nuovoOrdine2.PortateSelezionate = new List<PortataOrdinata>();
-        nuovoOrdine2.PortateSelezionate.Add(new PortataOrdinata()
+        nuovaPortataOrdinata.Add(new PortataOrdinata
         {
-            Portata = lasagna,Quantita = 3,Turno = 2
-        });
-        nuovoOrdine2.PortateSelezionate.Add(new PortataOrdinata()
-        {
-            Portata = arrosto,Quantita = 7
+            Portata = primo1
         });
         
+        nuovaPortataOrdinata.Add(new PortataOrdinata
+        {
+            Portata = secondo,
+            Quantita = 2
+        });
         
-        ordineRepo.Aggiungi(nuovoOrdine2);
+        nuovaPortataOrdinata.Add(new PortataOrdinata
+        {
+            Portata = contorno
+        });
+        
+        nuovaPortataOrdinata.Add(new PortataOrdinata
+        {
+            Portata = antipasto
+        });
+        
+        nuovaPortataOrdinata.Add(new PortataOrdinata
+        {
+            Portata = dolce
+        });
+        nuovaPortataOrdinata.Add(new PortataOrdinata
+        {
+            Portata = primo2
+        });
+
+        double costoTotale = 0;
+        
+        int idOrdine = ordineService.AddOrdine(nuovoUtente, nuovaPortataOrdinata, out costoTotale);
+        
+        Console.WriteLine(costoTotale);
+        ordineRepo.Aggiungi(ordineService.GetOrdine(idOrdine)!);
         ordineRepo.Save();
         
     }

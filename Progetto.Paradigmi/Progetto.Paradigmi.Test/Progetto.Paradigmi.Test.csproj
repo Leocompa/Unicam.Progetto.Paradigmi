@@ -9,6 +9,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Paradigmi.Abstraction\Paradigmi.Abstraction.csproj" />
+      <ProjectReference Include="..\Paradigmi.Application\Paradigmi.Application.csproj" />
       <ProjectReference Include="..\Paradigmi.Models\Paradigmi.Models.csproj" />
     </ItemGroup>
 

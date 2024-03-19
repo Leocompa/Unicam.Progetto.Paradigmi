@@ -12,8 +12,10 @@ public class OrdineRepository : GenericRepository<Ordine>
     /**
      * GetOrdini tutti
      */
-    public List<Ordine> GetOrdini(int from, int num, DateTime dataInizio, DateTime dataFine, out int totalNum,
-        Utente utente)
+    
+    //TODO gestire casi nulli
+    public List<Ordine> GetOrdini(int from, int num, DateTime dataInizio, DateTime? dataFine, out int totalNum,
+        Utente? utente)
     {
         if (utente.Ruolo.Equals(Ruolo.Cliente))
         {

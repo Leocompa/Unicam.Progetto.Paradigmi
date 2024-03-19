@@ -16,4 +16,10 @@ public class UtenteRepository : GenericRepository<Utente>
         totalNum = query.Count();
         return query.OrderBy(utente => utente.Email).Skip(from).Take(num).ToList();
     }
+
+    public List<Utente> GetUtenti()
+    {
+        var query = _context.Utenti.AsQueryable();
+        return query.OrderBy(utente => utente.Email).ToList();
+    }
 }
