@@ -63,13 +63,14 @@ public class RepositoryExample : IProject
         portataRepo.Aggiungi(dolce);
         portataRepo.Save();
         
-        var primo2 = new Portata("Tagliatelle", 12.50, Tipologia.Primo);
+        var primo2 = new Portata("Tagliatelle", 12.5000011451, Tipologia.Primo);
         portataRepo.Aggiungi(primo2);
         portataRepo.Save();
         
         nuovaPortataOrdinata.Add(new PortataOrdinata
         {
-            Portata = primo1
+            Portata = primo1,
+            Quantita = 3
         });
         
         nuovaPortataOrdinata.Add(new PortataOrdinata
@@ -80,17 +81,20 @@ public class RepositoryExample : IProject
         
         nuovaPortataOrdinata.Add(new PortataOrdinata
         {
-            Portata = contorno
+            Portata = contorno,
+            Quantita = 2
         });
         
         nuovaPortataOrdinata.Add(new PortataOrdinata
         {
-            Portata = antipasto
+            Portata = antipasto,
+            Quantita = 2
         });
         
         nuovaPortataOrdinata.Add(new PortataOrdinata
         {
-            Portata = dolce
+            Portata = dolce,
+            Quantita = 2
         });
         nuovaPortataOrdinata.Add(new PortataOrdinata
         {
