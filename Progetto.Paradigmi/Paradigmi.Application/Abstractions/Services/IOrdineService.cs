@@ -8,6 +8,6 @@ public interface IOrdineService
         string? email,
         out int totalNum);
 
-    int AddOrdine(Utente utente, List<PortataOrdinata> portateOrdinate, Address? address, out double costoTotale);
+    int AddOrdine(Utente utente, List<PortataOrdinata> portateOrdinate, Address? address, out decimal costoTotale);
     Ordine? GetOrdine(int idOrdine);
 }

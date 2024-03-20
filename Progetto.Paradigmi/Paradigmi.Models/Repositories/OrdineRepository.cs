@@ -13,48 +13,32 @@ public class OrdineRepository : GenericRepository<Ordine>
      * GetOrdini tutti
      */
 
-    //TODO gestire casi nulli
     public List<Ordine> GetOrdiniCliente(int from, int num, DateTime dataInizio, DateTime dataFine, out int totalNum,
         string email)
     {
-        var query = _context.Ordini.AsQueryable();
-
-        query = query.Where(ordine => ordine.Utente.Email == email);
-
-
-            query = query.Where(or => or.DataOrdine >= dataInizio);
-
-            query = query.Where(or => or.DataOrdine <= dataFine);
+        var query = _context.Ordini.AsQueryable()
+            .Where(ordine => ordine.Utente.Email == email && ordine.DataOrdine >= dataInizio && ordine.DataOrdine <= dataFine);
         
-
         totalNum = query.Count();
 
-        var risultatiPaginati = query.OrderBy(ordine => ordine.NumeroOrdine).Skip(from).Take(num).ToList();
+        var risultatiPaginati = query.OrderBy(ordine => ordine.NumeroOrdine).Skip(from).Take(Math.Min(num,totalNum-from)).ToList();
         
         return risultatiPaginati;
     }
 
-    public List<Ordine> GetOrdiniAmministratore(int from, int num, DateTime dataInizio, DateTime dataFine,
-        out int totalNum, string? email)
+    public List<Ordine> GetOrdiniAmministratore(int from, int num, DateTime dataInizio, DateTime dataFine, out int totalNum, string? email)
     {
-        var query = _context.Ordini.AsQueryable();
+        var query = _context.Ordini
+            .Where(ordine => (email == null || ordine.Utente.Email == email) && ordine.DataOrdine >= dataInizio && ordine.DataOrdine <= dataFine);
 
-        if (email != null)
-        {
-            query = query.Where(ordine => ordine.Utente.Email == email);
-        }
-
-
-        query = query.Where(or => or.DataOrdine >= dataInizio);
-
-
-        query = query.Where(or => or.DataOrdine <= dataFine);
-
-
+        // Se hai bisogno del conteggio totale per altre logiche, lascia questa riga
         totalNum = query.Count();
-        
-        var risultatiPaginati = query.OrderBy(ordine => ordine.NumeroOrdine).Skip(from)
-            .Take(Math.Min(num, totalNum - from)).ToList();
+
+        var risultatiPaginati = query
+            .OrderBy(ordine => ordine.NumeroOrdine)
+            .Skip(from)
+            .Take(Math.Min(num,totalNum-from))
+            .ToList();
 
         return risultatiPaginati;
     }

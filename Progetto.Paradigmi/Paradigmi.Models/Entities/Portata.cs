@@ -4,11 +4,11 @@ public class Portata
 {
     
     public string Nome { get; set; } = String.Empty;
-    public double Prezzo { get; set; } 
+    public decimal Prezzo { get; set; } 
     public Tipologia Tipo { get; set; }
 
 
-    public Portata(String nome, double prezzo, Tipologia tipo)
+    public Portata(String nome, decimal prezzo, Tipologia tipo)
     {
         //TODO Rimuovere dopo test la data
         Nome = nome + DateTime.Now;

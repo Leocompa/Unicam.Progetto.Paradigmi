@@ -51,12 +51,12 @@ public class RepositoryExample : IProject
 
         List<PortataOrdinata> nuovaPortataOrdinata = new List<PortataOrdinata>();
         
-        var primo1 = CreaPortata("Gnocchi", 10.50, Tipologia.Primo,portataRepo);
-        var secondo = CreaPortata("Spezzatino", 13.50, Tipologia.Secondo,portataRepo);
+        var primo1 = CreaPortata("Gnocchi", 10.50M, Tipologia.Primo,portataRepo);
+        var secondo = CreaPortata("Spezzatino", 13.50M, Tipologia.Secondo,portataRepo);
         var contorno = CreaPortata("Insalata", 5, Tipologia.Contorno,portataRepo);
         var antipasto = CreaPortata("Tagliere", 12, Tipologia.Antipasto,portataRepo);
-        var dolce = CreaPortata("Tiramisu", 5.5, Tipologia.Dolce,portataRepo);
-        var primo2 = CreaPortata( "Tagliatelle", 12.5, Tipologia.Primo,portataRepo);
+        var dolce = CreaPortata("Tiramisu", 5.5M, Tipologia.Dolce,portataRepo);
+        var primo2 = CreaPortata( "Tagliatelle", 12.5M, Tipologia.Primo,portataRepo);
         var vino = CreaPortata("Vino", 10, Tipologia.Vino,portataRepo);
         
         nuovaPortataOrdinata.Add(new PortataOrdinata
@@ -98,7 +98,7 @@ public class RepositoryExample : IProject
             Portata = primo2
         });
 
-        double costoTotale;
+        decimal costoTotale;
         
         int idOrdine = ordineService.AddOrdine(nuovoUtente, nuovaPortataOrdinata,new Address
             {
@@ -114,8 +114,25 @@ public class RepositoryExample : IProject
         int totalNum = 0;
         var elenco = ordineService.GetStoricoOrdini(0, 10, amministratore, null, null, null,  out totalNum);
 
+        
         foreach (var riga in elenco)
         {
+            Console.WriteLine("____________________________________________");
+            var portateOrdine=portateOrdinateService.GetPortateOrdine(riga.NumeroOrdine);
+            Console.WriteLine(riga.ClienteEmail + " , " + riga.DataOrdine + " ' " + riga.NumeroOrdine);
+
+            foreach (var portate in portateOrdine)
+            {
+                Console.WriteLine("-- " +portate.Quantita+" x "+ portate.PortataNome+" = "+portateOrdinateService.getCostoPortata(portate.OrdinazioneId,portate.PortataNome));
+            }
+        }
+        Console.WriteLine("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+        var elencoUtente = ordineService.GetStoricoOrdini(0, 10, nuovoUtente, DateTime.Now.AddMinutes(-1),null, nuovoUtente.Email,  out totalNum);
+
+        
+        foreach (var riga in elencoUtente)
+        {
+            Console.WriteLine("____________________________________________");
             var portateOrdine=portateOrdinateService.GetPortateOrdine(riga.NumeroOrdine);
             Console.WriteLine(riga.ClienteEmail + " , " + riga.DataOrdine + " ' " + riga.NumeroOrdine);
 
@@ -128,7 +145,7 @@ public class RepositoryExample : IProject
 
     }
 
-    private Portata CreaPortata(String nome,double prezzo, Tipologia tipo,PortataRepository portataRepo)
+    private Portata CreaPortata(String nome,decimal prezzo, Tipologia tipo,PortataRepository portataRepo)
     {
         Portata portata = new Portata(nome, prezzo, tipo);
         portataRepo.Aggiungi(portata);

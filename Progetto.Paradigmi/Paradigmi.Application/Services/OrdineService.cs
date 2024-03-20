@@ -30,7 +30,7 @@ namespace Paradigmi.Application.Services
             return _ordineRepository.Ottieni(idOrdine);
         }
 
-        public int AddOrdine(Utente utente, List<PortataOrdinata> portateOrdinate,Address? address, out double costoTotale)
+        public int AddOrdine(Utente utente, List<PortataOrdinata> portateOrdinate,Address? address, out decimal costoTotale)
         {
             var ordine = new Ordine
             {
@@ -63,24 +63,25 @@ namespace Paradigmi.Application.Services
                 .Select(kv => kv.Value.Count)
                 .Min();
 
-            double costo = 0;
+            decimal costo = 0;
             foreach (var portate in elencoPortate.Values)
             {
                 costo += ScontaCategoria(portate, nPastiCompleti);
             }
 
+            costoTotale = costo;
             costoTotale = Math.Round(costo, 2);
 
             return ordine.NumeroOrdine;
         }
 
-        private double ScontaCategoria(List<Portata> portate, int amount)
+        private decimal ScontaCategoria(List<Portata> portate, int amount)
         {
             var costoTotale = portate
                 .OrderByDescending(p => p.Prezzo)
                 .Select((p, index) => new
                     { Portata = p, IsScontabile = index < amount && _keyScontabili.Contains(p.Tipo) })
-                .Sum(p => p.IsScontabile ? p.Portata.Prezzo * 0.9 : p.Portata.Prezzo);
+                .Sum(p => p.IsScontabile ? p.Portata.Prezzo * 0.9M : p.Portata.Prezzo);
 
             return costoTotale;
         }

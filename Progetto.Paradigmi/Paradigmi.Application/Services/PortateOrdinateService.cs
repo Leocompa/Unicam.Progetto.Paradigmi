@@ -18,7 +18,7 @@ public class PortateOrdinateService : IPortateService
         return _portateOrdinateRepository.getPortateOrdinate(idOrdine);
     }
 
-    public double getCostoPortata(int idOrdine,string nomePortata)
+    public decimal getCostoPortata(int idOrdine,string nomePortata)
     {
         return _portateOrdinateRepository.getCosto(idOrdine,nomePortata);
     }

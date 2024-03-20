@@ -19,19 +19,11 @@ public class PortateOrdinateRepository : GenericRepository<PortataOrdinata>
         return query.ToList();
     }
 
-    public double getCosto(int idOrdine,string portataNome)
+    public decimal getCosto(int idOrdine,string portataNome)
     {
-        var query = _context.PortateOrdinate.AsQueryable();
-        query=query.Where(portata => portata.PortataNome.Equals(portataNome))
-            .Where(portata => portata.OrdinazioneId == idOrdine)
-            .Include(portata => portata.Portata);;
-        Console.WriteLine(query.ToQueryString());
-        
-        Console.WriteLine(query.ToList()[0].Quantita+","+query.ToList()[0].Portata.Prezzo);
-        
-        
-        double costoTotale = query
-            .ToList()
+        decimal costoTotale = _context.PortateOrdinate
+            .Where(portata => portata.PortataNome.Equals(portataNome) && portata.OrdinazioneId == idOrdine)
+            .Include(portata => portata.Portata)
             .Sum(ordine => ordine.Quantita * ordine.Portata.Prezzo);
         
         return costoTotale;
