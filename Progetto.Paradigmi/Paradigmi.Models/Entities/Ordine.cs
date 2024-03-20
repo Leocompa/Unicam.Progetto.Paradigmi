@@ -12,4 +12,6 @@ public class Ordine
     
     public ICollection<PortataOrdinata> PortateSelezionate { get; set; } = null!;
     public Utente Utente { get; set; } = null!;
+
+   
 }

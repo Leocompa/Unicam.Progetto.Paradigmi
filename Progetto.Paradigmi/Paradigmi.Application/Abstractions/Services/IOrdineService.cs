@@ -4,8 +4,10 @@ namespace Paradigmi.Application.Abstractions.Services;
 
 public interface IOrdineService
 {
+    List<Ordine> GetStoricoOrdini(int from, int num, Utente utente, DateTime? dataInizio, DateTime? dataFine,
+        string? email,
+        out int totalNum);
 
-    List<Ordine> GetOrdini(int from, int num, DateTime dataInizio, DateTime? dataFine, out int totalNum, Utente? utente);
-    int AddOrdine(Utente utente, List<PortataOrdinata> portateOrdinate, out double costoTotale);
+    int AddOrdine(Utente utente, List<PortataOrdinata> portateOrdinate, Address? address, out double costoTotale);
     Ordine? GetOrdine(int idOrdine);
 }

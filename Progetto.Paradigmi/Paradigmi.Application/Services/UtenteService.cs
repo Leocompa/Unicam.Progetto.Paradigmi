@@ -12,7 +12,7 @@ public class UtenteService : IUtenteService
     {
         _utenteRepository = utenteRepository;
     }
-    
+
     public List<Utente> GetUtenti()
     {
         return _utenteRepository.GetUtenti();
@@ -20,7 +20,7 @@ public class UtenteService : IUtenteService
 
     public List<Utente> GetUtenti(int from, int num, string? name, out int totalNum)
     {
-        return _utenteRepository.GetUtenti(from, num, name,out totalNum);
+        return _utenteRepository.GetUtenti(from, num, name, out totalNum);
     }
 
     public Task AddUtenteAsync(Utente utente)
@@ -30,4 +30,6 @@ public class UtenteService : IUtenteService
         _utenteRepository.Save();
         return Task.CompletedTask;
     }
+
+    
 }

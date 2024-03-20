@@ -19,16 +19,16 @@ Un portata dovrà essere tabellata e avrà i seguenti campi
 - Prezzo
 - Tipologia (primo, secondo, contorno, dolce)
 
-
 Le api che dovranno essere realizzate sono le seguenti :
  - Creazione di un utente di tipo Cliente (anonima senza autenticazione)
  - Autenticazione
  - Creazione di un ordine. 
    Con un unica chiamata dovrà essere creato l'ordine, e dovrà essere restituito il numero d'ordine e il prezzo totale.
-   Qualora l'utente effettuasse la prenotazione di un pasto completo, il pasto completo dovrà essere scontato del 10% (Solo il pasto completo quindi 
-   se un utente ordine 2 primi, 1 secondo, 1 contorno e 1 dolce, si effettuerà lo sconto del 10% su un primo (il più costoso), un secondo, un contorno e un dolce. Il secondo primo, non essendo a menu completo, resterà a prezzo pieno
+   Qualora l'utente effettuasse la prenotazione di un pasto completo, il pasto completo dovrà essere scontato del 10%
+   (Solo il pasto completo quindi se un utente ordine 2 primi, 1 secondo, 1 contorno e 1 dolce,
+   si effettuerà lo sconto del 10% su un primo (il più costoso), un secondo, un contorno e un dolce.
+   Il secondo primo, non essendo a menu completo, resterà a prezzo pieno
    
-
  - Storico degli ordini.
    Questa api si comporterà in maniera differente in base al ruolo dell'utente.
    Per gli utenti di tipo Cliente, dovrà far visualizzare l'elenco degli ordini da lui effettuato.

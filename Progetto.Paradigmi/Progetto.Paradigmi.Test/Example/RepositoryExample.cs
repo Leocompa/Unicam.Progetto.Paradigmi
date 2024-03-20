@@ -1,4 +1,5 @@
-﻿using Paradigmi.Abstraction;
+﻿using System.Security.Cryptography.X509Certificates;
+using Paradigmi.Abstraction;
 using Paradigmi.Application.Services;
 using Paradigmi.Models.Context;
 using Paradigmi.Models.Entities;
@@ -30,6 +31,12 @@ public class RepositoryExample : IProject
         utenteRepo.Modifica(utente);
         utenteRepo.Save();
         */
+        var amministratore = new Utente();
+        amministratore.Ruolo = Ruolo.Amministratore;
+        amministratore.Nome = "Amministratore";
+        amministratore.Cognome = "Ristorante";
+        amministratore.Email = "amministratore@mail.com"+DateTime.Now;
+        amministratore.Password= "Passw2";
 
         var nuovoUtente = new Utente();
         nuovoUtente.Ruolo = Ruolo.Cliente;
@@ -92,12 +99,30 @@ public class RepositoryExample : IProject
 
         double costoTotale;
         
-        int idOrdine = ordineService.AddOrdine(nuovoUtente, nuovaPortataOrdinata, out costoTotale);
+        int idOrdine = ordineService.AddOrdine(nuovoUtente, nuovaPortataOrdinata,new Address
+            {
+                Cap = "60035",
+                Citta = "Jesi",
+                Civico = 2,
+                Via = "Via Madonna delle Carceri"
+            }
+        ,out costoTotale);
         
         Console.WriteLine(costoTotale);
-        ordineRepo.Aggiungi(ordineService.GetOrdine(idOrdine)!);
-        ordineRepo.Save();
-        
+
+        int totalNum = 0;
+        var elenco = ordineService.GetStoricoOrdini(0, 10, amministratore, null, null, null,  out totalNum);
+
+        foreach (var riga in elenco)
+        {
+            Console.WriteLine(riga.Utente + " , " + riga.DataOrdine + " ' " + riga.NumeroOrdine);
+            foreach (var portate in riga.PortateSelezionate)
+            {
+                Console.WriteLine("-- " + portate.Portata + ", " + portate.Quantita);
+            }
+        }
+
+
     }
 
     private Portata CreaPortata(String nome,double prezzo, Tipologia tipo,PortataRepository portataRepo)
