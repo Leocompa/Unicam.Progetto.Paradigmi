@@ -27,7 +27,7 @@ public class OrdineController : ControllerBase
     {
         //TODO parte di validazione
 
-        double costoTotale = 0; 
+        decimal costoTotale = 0; 
         int idOrdine = _ordineService.AddOrdine(request.utente, request.portateOrdinate,request.IndirizzoConsegna, out costoTotale);
 
         var response = new CreateOrdineResponse();

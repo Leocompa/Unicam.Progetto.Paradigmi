@@ -12,7 +12,7 @@ public static class MiddlewareExtension
 {
     public static WebApplication? AddWebMiddleware(this WebApplication? app)
     {
-        //if (app.Environment.IsDevelopment())
+        if (app.Environment.IsDevelopment())
         {
             app.UseSwagger();
             app.UseSwaggerUI();
@@ -22,6 +22,7 @@ public static class MiddlewareExtension
         {
             await next.Invoke();
         });
+        
         app.UseHttpsRedirection();
         app.UseAuthentication();
         app.UseAuthorization();

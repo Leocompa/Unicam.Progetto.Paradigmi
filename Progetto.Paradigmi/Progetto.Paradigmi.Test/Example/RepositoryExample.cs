@@ -112,7 +112,7 @@ public class RepositoryExample : IProject
         Console.WriteLine(costoTotale);
 
         int totalNum = 0;
-        var elenco = ordineService.GetStoricoOrdini(0, 10, amministratore, null, null, null,  out totalNum);
+        var elenco = ordineService.GetStoricoOrdini(0, 3, amministratore, null, null, null,  out totalNum);
 
         
         foreach (var riga in elenco)
@@ -126,6 +126,7 @@ public class RepositoryExample : IProject
                 Console.WriteLine("-- " +portate.Quantita+" x "+ portate.PortataNome+" = "+portateOrdinateService.getCostoPortata(portate.OrdinazioneId,portate.PortataNome));
             }
         }
+        Console.WriteLine("Current Page: "+1+"/"+totalNum/3);
         Console.WriteLine("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
         var elencoUtente = ordineService.GetStoricoOrdini(0, 10, nuovoUtente, DateTime.Now.AddMinutes(-1),null, nuovoUtente.Email,  out totalNum);
 
