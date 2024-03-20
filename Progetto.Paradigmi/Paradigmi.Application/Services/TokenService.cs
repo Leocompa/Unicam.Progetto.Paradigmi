@@ -21,16 +21,25 @@ public class TokenService : ITokenService
     
     public string CreateToken(CreateTokenRequest request)
     {
-        List<Claim> claims = new List<Claim>();
+        var claims = new List<Claim>();
         //TODO
         claims.Add(new Claim("id_utente", "1"));
-        claims.Add(new Claim("Username", request.Username));
-  
+        claims.Add(new Claim("email", request.Email));
+        claims.Add(new Claim("password", request.Password));
 
-        var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtAuthenticationOption.Key));
-        var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
-        var securityToken = new JwtSecurityToken(_jwtAuthenticationOption.Issuer, null, claims,
-            expires: DateTime.Now.AddMinutes(30), signingCredentials: credentials);
+        var securityKey = new SymmetricSecurityKey(
+            Encoding.UTF8.GetBytes(_jwtAuthenticationOption.Key)
+            );
+        
+        var credentials = new SigningCredentials(securityKey,
+            SecurityAlgorithms.HmacSha256);
+        
+        var securityToken = new JwtSecurityToken(_jwtAuthenticationOption.Issuer
+            , null
+            , claims
+            , expires: DateTime.Now.AddMinutes(30)
+            ,signingCredentials: credentials
+            );
         var token = new JwtSecurityTokenHandler().WriteToken(securityToken);
         
         return token;

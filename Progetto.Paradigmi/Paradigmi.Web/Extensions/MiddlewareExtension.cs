@@ -15,7 +15,10 @@ public static class MiddlewareExtension
         if (app.Environment.IsDevelopment())
         {
             app.UseSwagger();
-            app.UseSwaggerUI();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json","Progetto Paradigmi" );
+            });
         }
 
         app.Use(async (context, next) =>

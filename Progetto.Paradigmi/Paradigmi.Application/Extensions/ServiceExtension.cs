@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Paradigmi.Application.Abstractions.Services;
 using Paradigmi.Application.Services;
+using Paradigmi.Models.Entities;
 
 namespace Paradigmi.Application.Extensions;
 
@@ -18,6 +19,10 @@ public static class ServiceExtension
 
         //TODO services
         services.AddScoped<ITokenService, TokenService>();
+        services.AddScoped<IOrdineService, OrdineService>();
+        services.AddScoped<IPortateService, PortateOrdinateService>();
+        services.AddScoped<IUtenteService, UtenteService>();
+
         return services;
     }
 }

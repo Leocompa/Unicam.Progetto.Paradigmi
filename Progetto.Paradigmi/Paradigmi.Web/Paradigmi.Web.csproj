@@ -21,4 +21,11 @@
       <ProjectReference Include="..\Progetto.Paradigmi.Test\Progetto.Paradigmi.Test.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Remove="appsettings.json" />
+      <Content Include="appsettings.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+    </ItemGroup>
+
 </Project>

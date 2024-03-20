@@ -15,6 +15,10 @@ public static class ServiceExtension
             conf.UseSqlServer(configuration.GetConnectionString("MyDbContext"));
         });
         services.AddScoped<UtenteRepository>();
+        services.AddScoped<PortataRepository>();
+        services.AddScoped<OrdineRepository>();
+        services.AddScoped<PortateOrdinateRepository>();
+
         return services;
     }
 }
