@@ -13,6 +13,9 @@ public class OrdinazioneConfiguration : IEntityTypeConfiguration<Ordine>
         builder.Property(o => o.NumeroOrdine).ValueGeneratedOnAdd();
         
         builder.Property(o => o.DataOrdine).IsRequired();
+        
+        
+        
         builder.HasOne(o => o.Utente)
             .WithMany()
             .HasForeignKey(o => o.ClienteEmail);

@@ -1,5 +1,4 @@
-﻿using System.Security.Cryptography.X509Certificates;
-using Paradigmi.Abstraction;
+﻿using Paradigmi.Abstraction;
 using Paradigmi.Application.Services;
 using Paradigmi.Models.Context;
 using Paradigmi.Models.Entities;
@@ -20,7 +19,9 @@ public class RepositoryExample : IProject
         var utenteRepo = new UtenteRepository(ctx);
         var ordineRepo = new OrdineRepository(ctx);
         var portataRepo = new PortataRepository(ctx);
+        var portataOrdinataRepo = new PortateOrdinateRepository(ctx,portataRepo);
         var ordineService = new OrdineService(ordineRepo);
+        var portateOrdinateService = new PortateOrdinateService(portataOrdinataRepo);
 /*
         var utente = utenteRepo.Ottieni("Umbe");
         var ordine = ordineRepo.Ottieni(1L);
@@ -103,7 +104,7 @@ public class RepositoryExample : IProject
             {
                 Cap = "60035",
                 Citta = "Jesi",
-                Civico = 2,
+                Civico = "2",
                 Via = "Via Madonna delle Carceri"
             }
         ,out costoTotale);
@@ -115,10 +116,12 @@ public class RepositoryExample : IProject
 
         foreach (var riga in elenco)
         {
-            Console.WriteLine(riga.Utente + " , " + riga.DataOrdine + " ' " + riga.NumeroOrdine);
-            foreach (var portate in riga.PortateSelezionate)
+            var portateOrdine=portateOrdinateService.GetPortateOrdine(riga.NumeroOrdine);
+            Console.WriteLine(riga.ClienteEmail + " , " + riga.DataOrdine + " ' " + riga.NumeroOrdine);
+
+            foreach (var portate in portateOrdine)
             {
-                Console.WriteLine("-- " + portate.Portata + ", " + portate.Quantita);
+                Console.WriteLine("-- " +portate.Quantita+" x "+ portate.PortataNome+" = "+portateOrdinateService.getCostoPortata(portate.OrdinazioneId,portate.PortataNome));
             }
         }
 

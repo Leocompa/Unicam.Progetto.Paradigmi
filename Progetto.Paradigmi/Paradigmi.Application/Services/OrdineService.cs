@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Diagnostics;
 using Paradigmi.Application.Abstractions.Services;
 using Paradigmi.Models.Entities;
 using Paradigmi.Models.Repositories;
@@ -86,18 +88,24 @@ namespace Paradigmi.Application.Services
         public List<Ordine> GetStoricoOrdini(int from, int num, Utente utente, DateTime? dataInizio, DateTime? dataFine,
             string? email, out int totalNum)
         {
+            if (dataInizio == null)
+                dataInizio = DateTime.MinValue;
+            if(dataFine==null)
+                dataFine=DateTime.Now;
+            
             switch (utente.Ruolo)
             {
                 case Ruolo.Amministratore:
-                    Console.WriteLine("amministratore");
-                    return _ordineRepository.GetOrdiniAmministratore(from, num, dataInizio, dataFine, out totalNum,
+                    return _ordineRepository.GetOrdiniAmministratore(from, num, (DateTime)dataInizio,(DateTime) dataFine, out totalNum,
                         email);
                 case Ruolo.Cliente:
                     if (email == null)
                     {
                         throw new ArgumentException("parametro email non valido");
                     }
-                    return _ordineRepository.GetOrdiniCliente(from, num, dataInizio, dataFine, out totalNum, email);
+
+                    Debug.Assert(dataInizio != null, nameof(dataInizio) + " != null");
+                    return _ordineRepository.GetOrdiniCliente(from, num, (DateTime)dataInizio,(DateTime) dataFine, out totalNum, email);
                 default:
                     throw new ArgumentException("ruolo non valido");
             }

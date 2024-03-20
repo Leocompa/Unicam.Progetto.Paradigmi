@@ -10,5 +10,3 @@ foreach (var example in examples)
 {
     example.RunProject();
 }
-
-Console.ReadLine();
