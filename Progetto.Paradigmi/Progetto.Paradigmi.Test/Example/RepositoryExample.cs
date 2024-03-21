@@ -21,7 +21,7 @@ public class RepositoryExample : IProject
         var portataRepo = new PortataRepository(ctx);
         var portataOrdinataRepo = new PortateOrdinateRepository(ctx,portataRepo);
         var ordineService = new OrdineService(ordineRepo, portataRepo);
-        var portateOrdinateService = new PortateOrdinateService(portataOrdinataRepo, portataRepo);
+        var portateOrdinateService = new PortateOrdinateService(portataOrdinataRepo);
 /*
         var utente = utenteRepo.Ottieni("Umbe");
         var ordine = ordineRepo.Ottieni(1L);
@@ -98,7 +98,9 @@ public class RepositoryExample : IProject
             Portata = primo2
         });
 
+        int numeroPasti;
         decimal costoTotale;
+        decimal costoTotaleScontato;
         
         int idOrdine = ordineService.AddOrdine(nuovoUtente.Email, nuovaPortataOrdinata,new Address
             {
@@ -106,8 +108,8 @@ public class RepositoryExample : IProject
                 Citta = "Jesi",
                 Civico = "2",
                 Via = "Via Madonna delle Carceri"
-            }
-        ,out costoTotale);
+            },
+         out costoTotaleScontato ,out costoTotale, out numeroPasti);
         
         Console.WriteLine(costoTotale);
 

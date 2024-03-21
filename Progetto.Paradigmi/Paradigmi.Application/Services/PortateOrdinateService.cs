@@ -5,38 +5,24 @@ using Paradigmi.Models.Repositories;
 
 namespace Paradigmi.Application.Services;
 
-public class PortateOrdinateService : IPortateService
+public class PortateOrdinateService : IPortateOrdinateService
 {
     private readonly PortateOrdinateRepository _portateOrdinateRepository;
-    private readonly PortataRepository _portataRepository;
-    public PortateOrdinateService(PortateOrdinateRepository portateOrdinateRepository, PortataRepository portataRepository)
+
+    public PortateOrdinateService(PortateOrdinateRepository portateOrdinateRepository)
     {
         _portateOrdinateRepository = portateOrdinateRepository;
-        _portataRepository = portataRepository;
     }
 
-    public List<PortataOrdinata> GetPortateOrdine(int idOrdine)
+    public List<PortataOrdinata> GetPortateOrdine(int numeroOrdine)
     {
-        return _portateOrdinateRepository.getPortateOrdinate(idOrdine);
+        return _portateOrdinateRepository.getPortateOrdinate(numeroOrdine);
     }
 
-    public Portata CreaPortata(string nome, decimal prezzo, Tipologia tipo)
+
+    public decimal getCostoPortata(int numeroOrdine, string nomePortata)
     {
-        //TODO controllare se nome portata già esistente
-        var portata = new Portata(nome, prezzo, tipo);
-        Console.WriteLine(nome);
-        Console.WriteLine(prezzo);
-        Console.WriteLine(tipo);
-        _portataRepository.Aggiungi(portata);
-        _portataRepository.Save();
-
-        return portata;
+        return _portateOrdinateRepository.getCosto(numeroOrdine, nomePortata);
     }
-
-    public decimal getCostoPortata(int idOrdine,string nomePortata)
-    {
-        return _portateOrdinateRepository.getCosto(idOrdine,nomePortata);
-    }
-
-  
+    
 }

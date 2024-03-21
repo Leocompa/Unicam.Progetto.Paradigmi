@@ -21,7 +21,8 @@ public static class ServiceExtension
         services.AddScoped<IUtenteService, UtenteService>();
         services.AddScoped<ITokenService, TokenService>();
         services.AddScoped<IOrdineService, OrdineService>();
-        services.AddScoped<IPortateService, PortateOrdinateService>();
+        services.AddScoped<IPortateService, PortateService>();
+        services.AddScoped<IPortateOrdinateService, PortateOrdinateService>();
         
         return services;
     }

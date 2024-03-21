@@ -33,7 +33,8 @@ namespace Paradigmi.Application.Services
             return _ordineRepository.Ottieni(idOrdine);
         }
 
-        public int AddOrdine(string emailUtente, List<PortataOrdinata> portateOrdinate,Address? address, out decimal costoTotale)
+        public int AddOrdine(string emailUtente, List<PortataOrdinata> portateOrdinate, Address? address,
+            out decimal costoTotaleScontato, out decimal costoTotale, out int pastoCompleto)
         {
             var ordine = new Ordine
             {
@@ -55,6 +56,7 @@ namespace Paradigmi.Application.Services
                 {
                     throw new Exception("portata non valida");
                 }
+
                 if (!elencoPortate.ContainsKey(portata.Tipo))
                 {
                     elencoPortate[portata.Tipo] = new List<Portata>();
@@ -72,34 +74,42 @@ namespace Paradigmi.Application.Services
                 .Min();
 
             decimal costo = 0;
+            decimal costoTot = 0;
             foreach (var portate in elencoPortate.Values)
             {
                 if (portate != null)
                 {
                     costo += ScontaCategoria(portate, nPastiCompleti);
-
+                    costoTot += GetCostoTotale(portate);
                 }
             }
 
-            costoTotale = costo;
-            costoTotale = Math.Round(costo, 2);
+            costoTotaleScontato = costo;
+            costoTotaleScontato = Math.Round(costo, 2);
+            costoTotale = costoTot;
+            pastoCompleto = nPastiCompleti;
 
             return ordine.NumeroOrdine;
+        }
+
+        private decimal GetCostoTotale(List<Portata> portate)
+        {
+            decimal costoTotale = 0;
+            foreach (var portata in portate)
+            {
+                costoTotale += portata.Prezzo;
+            }
+
+            return costoTotale;
         }
 
         private decimal ScontaCategoria(List<Portata> portate, int amount)
         {
             if (portate.Count == 0)
             {
-                Console.WriteLine("elenco vuoto");
                 return 0;
             }
-            foreach (var portata in portate)
-            {
-                Console.WriteLine(portata.Nome);
-                Console.WriteLine(portata.Prezzo);
-                Console.WriteLine(portata.Tipo);
-            }
+
             var costoTotale = portate
                 .OrderByDescending(p => p.Prezzo)
                 .Select((p, index) => new
@@ -114,13 +124,14 @@ namespace Paradigmi.Application.Services
         {
             if (dataInizio == null)
                 dataInizio = DateOnly.MinValue;
-            if(dataFine==null)
-                dataFine=DateOnly.FromDateTime(DateTime.Now);
-            
+            if (dataFine == null)
+                dataFine = DateOnly.FromDateTime(DateTime.Now);
+
             switch (ruolo)
             {
                 case Ruolo.Amministratore:
-                    return _ordineRepository.GetOrdiniAmministratore(from, num, (DateOnly)dataInizio,(DateOnly) dataFine, out totalNum,
+                    return _ordineRepository.GetOrdiniAmministratore(from, num, (DateOnly)dataInizio,
+                        (DateOnly)dataFine, out totalNum,
                         email);
                 case Ruolo.Cliente:
                     if (email == null)
@@ -129,7 +140,8 @@ namespace Paradigmi.Application.Services
                     }
 
                     Debug.Assert(dataInizio != null, nameof(dataInizio) + " != null");
-                    return _ordineRepository.GetOrdiniCliente(from, num, (DateOnly)dataInizio,(DateOnly) dataFine, out totalNum, email);
+                    return _ordineRepository.GetOrdiniCliente(from, num, (DateOnly)dataInizio, (DateOnly)dataFine,
+                        out totalNum, email);
                 default:
                     throw new ArgumentException("ruolo non valido");
             }

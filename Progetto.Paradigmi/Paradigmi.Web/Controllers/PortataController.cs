@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -10,10 +11,8 @@ using Paradigmi.Models.Entities;
 
 namespace Paradigmi.Web.Controllers;
 
-
 [ApiController]
 [Route("api/v1/[controller]")]
-[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
 public class PortataController : ControllerBase
 {
     private readonly IPortateService _portateService;
@@ -25,13 +24,30 @@ public class PortataController : ControllerBase
 
     [HttpPost]
     [Route("newPortata")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<IActionResult> CreatePortata(CreatePortataRequest portataRequest, Tipologia tipologia)
     {
-        //TODO parte di validazione
-        var portata = _portateService.CreaPortata(portataRequest.Nome, portataRequest.Prezzo, tipologia);
+        var claimsIdentity = User.Identity as ClaimsIdentity;
+        string claimRuolo = claimsIdentity.Claims.First(claim => claim.Type == "ruolo").Value;
+        var ruolo = RuoloExtensions.AsRuolo(claimRuolo);
+        if (ruolo == Ruolo.Amministratore)
+        {
+            var portata = _portateService.CreaPortata(portataRequest.Nome, portataRequest.Prezzo, tipologia);
 
-        var response = new CreatePortataResponse();
-        response.Portata = new PortataDto(portata);
-        return Ok(ResponseFactory.WithSuccess(response));
+            var response = new CreatePortataResponse();
+            response.Portata = new PortataDto(portata);
+            return Ok(ResponseFactory.WithSuccess(response));
+        }
+
+        return BadRequest(ResponseFactory.WithError(
+            "devi essere un amministratore per creare una nuova portata"));
+    }
+
+    [HttpPost]
+    [Route("getPortate")]
+    public async Task<IActionResult> GetPortate(string? nome, Tipologia? tipologia)
+    {
+        List<Portata> portate = _portateService.GetPortate(nome, tipologia);
+        return Ok(ResponseFactory.WithSuccess(portate));
     }
 }

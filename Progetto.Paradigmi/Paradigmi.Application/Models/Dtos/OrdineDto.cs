@@ -17,10 +17,10 @@ public class OrdineDto
 
     public OrdineDto(Ordine ordine)
     {
-        ordine.ClienteEmail = ClienteEmail;
-        ordine.DataOrdine = DataOrdine;
-        ordine.NumeroOrdine = NumeroOrdine;
-        ordine.IndirizzoConsegna = IndirizzoConsegna;
+        ClienteEmail= ordine.ClienteEmail;
+        DataOrdine = ordine.DataOrdine;
+        NumeroOrdine = ordine.NumeroOrdine;
+        IndirizzoConsegna = ordine.IndirizzoConsegna;
 
     }
 }
