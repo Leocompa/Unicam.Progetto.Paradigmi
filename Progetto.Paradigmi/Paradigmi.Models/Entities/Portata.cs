@@ -11,7 +11,7 @@ public class Portata
     public Portata(String nome, decimal prezzo, Tipologia tipo)
     {
         //TODO Rimuovere dopo test la data
-        Nome = nome + DateTime.Now;
+        Nome = nome;
         Prezzo = prezzo;
         Tipo = tipo;
     }

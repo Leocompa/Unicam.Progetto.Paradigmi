@@ -1,3 +1,5 @@
+using Paradigmi.Models.Entities;
+
 namespace Paradigmi.Application.Models.Responses;
 
 public class CreateTokenResponse
