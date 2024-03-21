@@ -18,11 +18,11 @@ public static class ServiceExtension
         );
 
         //TODO services
+        services.AddScoped<IUtenteService, UtenteService>();
         services.AddScoped<ITokenService, TokenService>();
         services.AddScoped<IOrdineService, OrdineService>();
         services.AddScoped<IPortateService, PortateOrdinateService>();
-        services.AddScoped<IUtenteService, UtenteService>();
-
+        
         return services;
     }
 }

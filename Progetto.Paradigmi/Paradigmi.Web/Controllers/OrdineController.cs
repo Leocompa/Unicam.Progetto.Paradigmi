@@ -6,6 +6,7 @@ using Paradigmi.Application.Abstractions.Services;
 using Paradigmi.Application.Factories;
 using Paradigmi.Application.Models.Requests;
 using Paradigmi.Application.Responses;
+using Paradigmi.Models.Entities;
 
 namespace Paradigmi.Web.Controllers;
 
@@ -23,13 +24,19 @@ public class OrdineController : ControllerBase
     }
 
     [HttpPost]
-    [Route("new")]
+    [Route("newOrdine")]
     public async Task<IActionResult> CreateOrdine(CreateOrdineRequest ordineRequest)
     {
         //TODO parte di validazione
 
         decimal costoTotale = 0;
-        int idOrdine = _ordineService.AddOrdine(ordineRequest.utente, ordineRequest.portateOrdinate,
+        List<PortataOrdinata> portateOrdinate = new List<PortataOrdinata>();
+        foreach (var portata in ordineRequest.portateOrdinate)
+        {
+            portateOrdinate.Add(portata.ToEntity());
+        }
+
+        int idOrdine = _ordineService.AddOrdine(ordineRequest.emailUtente, portateOrdinate,
             ordineRequest.IndirizzoConsegna, out costoTotale);
 
         var response = new CreateOrdineResponse();
@@ -41,9 +48,29 @@ public class OrdineController : ControllerBase
     [Route("get/StoricoOrdini")]
     public async Task<IActionResult> GetOrdini(CreateStoricoRequest storicoRequest)
     {
+        var claimsIdentity = User.Identity as ClaimsIdentity;
+        string claimRuolo = claimsIdentity.Claims.First(claim => claim.Type == "ruolo").Value;
+        var ruolo = RuoloExtensions.AsRuolo(claimRuolo);
+        if (ruolo == Ruolo.Cliente)
+        {
+            if (storicoRequest.EmailUtenteCercato != null)
+            {
+                if (storicoRequest.EmailUtenteCercato !=
+                    claimsIdentity.Claims.First(claim => claim.Type == "email").Value)
+                {
+                    return BadRequest(ResponseFactory.WithError(
+                        "devi essere un amministratore per ottenere lo storico di un utente specifico"));
+                }
+            }
+            else
+            {
+                storicoRequest.EmailUtenteCercato = claimsIdentity.Claims.First(claim => claim.Type == "email").Value;
+            }
+        }
+
         int totalNum = 0;
         var response = _ordineService.GetStoricoOrdini(storicoRequest.PaginaCorrente, storicoRequest.RighePerPagina,
-            storicoRequest.Utente, storicoRequest.DataInizio, storicoRequest.DataFine, storicoRequest.UtenteCercato,
+            ruolo, storicoRequest.DataInizio, storicoRequest.DataFine, storicoRequest.EmailUtenteCercato,
             out totalNum);
         return Ok(ResponseFactory.WithSuccess(response));
     }

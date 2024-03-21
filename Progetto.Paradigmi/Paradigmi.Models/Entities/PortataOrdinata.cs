@@ -11,4 +11,17 @@ public class PortataOrdinata
 
     public Ordine Ordine { get; set; } = null!;
     public Portata Portata { get; set; } = null!;
+
+
+    public PortataOrdinata(string portataNome, int quantita, int turno)
+    {
+        PortataNome = portataNome;
+        Quantita = quantita;
+        Turno = turno;
+    }
+
+    public PortataOrdinata()
+    {
+        
+    }
 }

@@ -6,26 +6,28 @@ using Microsoft.IdentityModel.Tokens;
 using Paradigmi.Application.Abstractions.Services;
 using Paradigmi.Application.Models.Requests;
 using Paradigmi.Application.Options;
+using Paradigmi.Models.Entities;
 
 namespace Paradigmi.Application.Services;
 
 public class TokenService : ITokenService
 {
     private readonly JwtAuthenticationOption _jwtAuthenticationOption;
+    private readonly IUtenteService _utenteService;
 
-    public TokenService(IOptions<JwtAuthenticationOption> jwtAuthOptions)
+    public TokenService(IOptions<JwtAuthenticationOption> jwtAuthOptions, IUtenteService utenteService)
     {
         _jwtAuthenticationOption = jwtAuthOptions.Value;
-
+        _utenteService = utenteService;
     }
     
     public string CreateToken(CreateTokenRequest request)
     {
         var claims = new List<Claim>();
-        //TODO
-        claims.Add(new Claim("id_utente", "1"));
+        
         claims.Add(new Claim("email", request.Email));
-        claims.Add(new Claim("password", request.Password));
+        Utente? utente = _utenteService.GetUtente(request.Email);
+        claims.Add(new Claim("ruolo", utente == null ? Ruolo.Cliente.ToString() : utente.Ruolo.ToString()));
 
         var securityKey = new SymmetricSecurityKey(
             Encoding.UTF8.GetBytes(_jwtAuthenticationOption.Key)

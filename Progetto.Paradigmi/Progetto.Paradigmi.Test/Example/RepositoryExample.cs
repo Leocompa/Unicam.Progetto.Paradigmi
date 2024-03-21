@@ -20,8 +20,8 @@ public class RepositoryExample : IProject
         var ordineRepo = new OrdineRepository(ctx);
         var portataRepo = new PortataRepository(ctx);
         var portataOrdinataRepo = new PortateOrdinateRepository(ctx,portataRepo);
-        var ordineService = new OrdineService(ordineRepo);
-        var portateOrdinateService = new PortateOrdinateService(portataOrdinataRepo);
+        var ordineService = new OrdineService(ordineRepo, portataRepo);
+        var portateOrdinateService = new PortateOrdinateService(portataOrdinataRepo, portataRepo);
 /*
         var utente = utenteRepo.Ottieni("Umbe");
         var ordine = ordineRepo.Ottieni(1L);
@@ -100,7 +100,7 @@ public class RepositoryExample : IProject
 
         decimal costoTotale;
         
-        int idOrdine = ordineService.AddOrdine(nuovoUtente, nuovaPortataOrdinata,new Address
+        int idOrdine = ordineService.AddOrdine(nuovoUtente.Email, nuovaPortataOrdinata,new Address
             {
                 Cap = "60035",
                 Citta = "Jesi",
@@ -112,7 +112,7 @@ public class RepositoryExample : IProject
         Console.WriteLine(costoTotale);
 
         int totalNum = 0;
-        var elenco = ordineService.GetStoricoOrdini(0, 3, amministratore, null, null, null,  out totalNum);
+        var elenco = ordineService.GetStoricoOrdini(0, 3, amministratore.Ruolo, null, null, null,  out totalNum);
 
         
         foreach (var riga in elenco)
@@ -128,7 +128,7 @@ public class RepositoryExample : IProject
         }
         Console.WriteLine("Current Page: "+1+"/"+totalNum/3);
         Console.WriteLine("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-        var elencoUtente = ordineService.GetStoricoOrdini(0, 10, nuovoUtente, DateTime.Now.AddMinutes(-1),null, nuovoUtente.Email,  out totalNum);
+        var elencoUtente = ordineService.GetStoricoOrdini(0, 10, nuovoUtente.Ruolo, DateOnly.FromDateTime(DateTime.Now.AddDays(-1)),null, nuovoUtente.Email,  out totalNum);
 
         
         foreach (var riga in elencoUtente)

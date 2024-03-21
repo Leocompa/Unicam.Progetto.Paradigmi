@@ -1,4 +1,5 @@
 using System.Text;
+using System.Text.Json.Serialization;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
@@ -19,6 +20,8 @@ namespace Paradigmi.Web.Extensions
                 opt.InvalidModelStateResponseFactory = (context => new BadRequestResultFactory(context));
             });
 
+            services.AddControllersWithViews().AddJsonOptions(options => options.JsonSerializerOptions.Converters
+                .Add(new JsonStringEnumConverter()));
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen(options =>
             {

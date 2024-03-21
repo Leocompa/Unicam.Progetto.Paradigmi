@@ -6,9 +6,8 @@ public class CreateStoricoRequest
 {
     public int PaginaCorrente { get; set; }
     public int RighePerPagina { get; set; }
-    public Utente Utente { get; set; }
-    public DateTime? DataInizio { get; set; }
-    public DateTime? DataFine { get; set; }
-    public string? UtenteCercato { get; set; }
+    public DateOnly? DataInizio { get; set; }
+    public DateOnly? DataFine { get; set; }
+    public string? EmailUtenteCercato { get; set; }
     
 }

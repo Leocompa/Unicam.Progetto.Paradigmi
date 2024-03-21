@@ -15,4 +15,5 @@ public class Portata
         Prezzo = prezzo;
         Tipo = tipo;
     }
+    
 }

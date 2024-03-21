@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Diagnostics;
 using Paradigmi.Application.Abstractions.Services;
+using Paradigmi.Application.Models.Requests;
 using Paradigmi.Models.Entities;
 using Paradigmi.Models.Repositories;
 
@@ -9,6 +10,7 @@ namespace Paradigmi.Application.Services
     public class OrdineService : IOrdineService
     {
         private readonly OrdineRepository _ordineRepository;
+        private readonly PortataRepository _portataRepository;
 
         //TODO file config
         private readonly HashSet<Tipologia> _keyScontabili =
@@ -20,9 +22,10 @@ namespace Paradigmi.Application.Services
             Tipologia.Dolce
         ];
 
-        public OrdineService(OrdineRepository ordineRepository)
+        public OrdineService(OrdineRepository ordineRepository, PortataRepository portataRepository)
         {
             _ordineRepository = ordineRepository;
+            _portataRepository = portataRepository;
         }
 
         public Ordine? GetOrdine(int idOrdine)
@@ -30,12 +33,12 @@ namespace Paradigmi.Application.Services
             return _ordineRepository.Ottieni(idOrdine);
         }
 
-        public int AddOrdine(Utente utente, List<PortataOrdinata> portateOrdinate,Address? address, out decimal costoTotale)
+        public int AddOrdine(string emailUtente, List<PortataOrdinata> portateOrdinate,Address? address, out decimal costoTotale)
         {
             var ordine = new Ordine
             {
-                Utente = utente,
-                DataOrdine = DateTime.Now,
+                ClienteEmail = emailUtente,
+                DataOrdine = DateOnly.FromDateTime(DateTime.Now),
                 PortateSelezionate = portateOrdinate,
                 IndirizzoConsegna = address
             };
@@ -47,14 +50,19 @@ namespace Paradigmi.Application.Services
 
             foreach (var portataOrdinata in portateOrdinate)
             {
-                if (!elencoPortate.ContainsKey(portataOrdinata.Portata.Tipo))
+                Portata? portata = _portataRepository.Ottieni(portataOrdinata.PortataNome);
+                if (portata == null)
                 {
-                    elencoPortate[portataOrdinata.Portata.Tipo] = new List<Portata>();
+                    throw new Exception("portata non valida");
+                }
+                if (!elencoPortate.ContainsKey(portata.Tipo))
+                {
+                    elencoPortate[portata.Tipo] = new List<Portata>();
                 }
 
                 for (int i = 0; i < portataOrdinata.Quantita; i++)
                 {
-                    elencoPortate[portataOrdinata.Portata.Tipo].Add(portataOrdinata.Portata);
+                    elencoPortate[portata.Tipo].Add(portataOrdinata.Portata);
                 }
             }
 
@@ -66,7 +74,11 @@ namespace Paradigmi.Application.Services
             decimal costo = 0;
             foreach (var portate in elencoPortate.Values)
             {
-                costo += ScontaCategoria(portate, nPastiCompleti);
+                if (portate != null)
+                {
+                    costo += ScontaCategoria(portate, nPastiCompleti);
+
+                }
             }
 
             costoTotale = costo;
@@ -77,6 +89,17 @@ namespace Paradigmi.Application.Services
 
         private decimal ScontaCategoria(List<Portata> portate, int amount)
         {
+            if (portate.Count == 0)
+            {
+                Console.WriteLine("elenco vuoto");
+                return 0;
+            }
+            foreach (var portata in portate)
+            {
+                Console.WriteLine(portata.Nome);
+                Console.WriteLine(portata.Prezzo);
+                Console.WriteLine(portata.Tipo);
+            }
             var costoTotale = portate
                 .OrderByDescending(p => p.Prezzo)
                 .Select((p, index) => new
@@ -86,18 +109,18 @@ namespace Paradigmi.Application.Services
             return costoTotale;
         }
 
-        public List<Ordine> GetStoricoOrdini(int from, int num, Utente utente, DateTime? dataInizio, DateTime? dataFine,
+        public List<Ordine> GetStoricoOrdini(int from, int num, Ruolo ruolo, DateOnly? dataInizio, DateOnly? dataFine,
             string? email, out int totalNum)
         {
             if (dataInizio == null)
-                dataInizio = DateTime.MinValue;
+                dataInizio = DateOnly.MinValue;
             if(dataFine==null)
-                dataFine=DateTime.Now;
+                dataFine=DateOnly.FromDateTime(DateTime.Now);
             
-            switch (utente.Ruolo)
+            switch (ruolo)
             {
                 case Ruolo.Amministratore:
-                    return _ordineRepository.GetOrdiniAmministratore(from, num, (DateTime)dataInizio,(DateTime) dataFine, out totalNum,
+                    return _ordineRepository.GetOrdiniAmministratore(from, num, (DateOnly)dataInizio,(DateOnly) dataFine, out totalNum,
                         email);
                 case Ruolo.Cliente:
                     if (email == null)
@@ -106,7 +129,7 @@ namespace Paradigmi.Application.Services
                     }
 
                     Debug.Assert(dataInizio != null, nameof(dataInizio) + " != null");
-                    return _ordineRepository.GetOrdiniCliente(from, num, (DateTime)dataInizio,(DateTime) dataFine, out totalNum, email);
+                    return _ordineRepository.GetOrdiniCliente(from, num, (DateOnly)dataInizio,(DateOnly) dataFine, out totalNum, email);
                 default:
                     throw new ArgumentException("ruolo non valido");
             }

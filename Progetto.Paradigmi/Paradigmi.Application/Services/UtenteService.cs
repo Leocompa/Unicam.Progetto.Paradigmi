@@ -31,5 +31,9 @@ public class UtenteService : IUtenteService
         return Task.CompletedTask;
     }
 
-    
+
+    public Utente? GetUtente(string email)
+    {
+        return _utenteRepository.Ottieni(email);
+    }
 }

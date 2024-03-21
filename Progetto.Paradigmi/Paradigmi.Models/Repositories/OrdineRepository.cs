@@ -13,7 +13,7 @@ public class OrdineRepository : GenericRepository<Ordine>
      * GetOrdini tutti
      */
 
-    public List<Ordine> GetOrdiniCliente(int from, int num, DateTime dataInizio, DateTime dataFine, out int totalNum,
+    public List<Ordine> GetOrdiniCliente(int from, int num, DateOnly dataInizio, DateOnly dataFine, out int totalNum,
         string email)
     {
         var query = _context.Ordini.AsQueryable()
@@ -26,7 +26,7 @@ public class OrdineRepository : GenericRepository<Ordine>
         return risultatiPaginati;
     }
 
-    public List<Ordine> GetOrdiniAmministratore(int from, int num, DateTime dataInizio, DateTime dataFine, out int totalNum, string? email)
+    public List<Ordine> GetOrdiniAmministratore(int from, int num, DateOnly dataInizio, DateOnly dataFine, out int totalNum, string? email)
     {
         var query = _context.Ordini
             .Where(ordine => (email == null || ordine.Utente.Email == email) && ordine.DataOrdine >= dataInizio && ordine.DataOrdine <= dataFine);
