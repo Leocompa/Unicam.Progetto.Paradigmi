@@ -20,7 +20,7 @@ public class RepositoryExample : IProject
         var ordineRepo = new OrdineRepository(ctx);
         var portataRepo = new PortataRepository(ctx);
         var portataOrdinataRepo = new PortateOrdinateRepository(ctx,portataRepo);
-        var ordineService = new OrdineService(ordineRepo, portataRepo);
+        var ordineService = new OrdineService(ordineRepo, portataRepo,null);
         var portateOrdinateService = new PortateOrdinateService(portataOrdinataRepo);
 
         

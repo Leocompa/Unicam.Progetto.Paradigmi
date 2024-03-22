@@ -16,7 +16,7 @@ public class PortateOrdinateRepository : GenericRepository<PortataOrdinata>
     {
         var query = _context.PortateOrdinate.AsQueryable();
         query=query.Where(portata => portata.OrdinazioneId == idOrdine);
-        return query.ToList();
+        return query.OrderBy(ordinata => ordinata.Turno).ToList();
     }
 
     public decimal getCosto(int idOrdine,string portataNome)

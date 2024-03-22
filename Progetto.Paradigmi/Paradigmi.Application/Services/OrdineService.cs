@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Diagnostics;
+using Microsoft.Extensions.Configuration;
 using Paradigmi.Application.Abstractions.Services;
 using Paradigmi.Application.Models.Requests;
 using Paradigmi.Models.Entities;
@@ -11,21 +12,31 @@ namespace Paradigmi.Application.Services
     {
         private readonly OrdineRepository _ordineRepository;
         private readonly PortataRepository _portataRepository;
+        private readonly HashSet<Tipologia> _keyScontabili;
 
-        //TODO file config
-        private readonly HashSet<Tipologia> _keyScontabili =
-        [
-            Tipologia.Antipasto,
-            Tipologia.Primo,
-            Tipologia.Secondo,
-            Tipologia.Contorno,
-            Tipologia.Dolce
-        ];
 
-        public OrdineService(OrdineRepository ordineRepository, PortataRepository portataRepository)
+       
+
+        public OrdineService(OrdineRepository ordineRepository, PortataRepository portataRepository,IConfiguration configuration)
         {
             _ordineRepository = ordineRepository;
             _portataRepository = portataRepository;
+            var keyScontabiliConfig = configuration.GetSection("PastoCompleto").Get<List<Tipologia>>();
+            if (keyScontabiliConfig == null || !keyScontabiliConfig.Any())
+            {
+                _keyScontabili = new HashSet<Tipologia>
+                {
+                    Tipologia.Antipasto,
+                    Tipologia.Primo,
+                    Tipologia.Secondo,
+                    Tipologia.Contorno,
+                    Tipologia.Dolce
+                };
+            }
+            else
+            {
+                _keyScontabili = new HashSet<Tipologia>(keyScontabiliConfig);
+            }
         }
 
         public Ordine? GetOrdine(int idOrdine)
