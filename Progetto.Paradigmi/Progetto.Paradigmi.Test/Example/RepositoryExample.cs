@@ -22,16 +22,8 @@ public class RepositoryExample : IProject
         var portataOrdinataRepo = new PortateOrdinateRepository(ctx,portataRepo);
         var ordineService = new OrdineService(ordineRepo, portataRepo);
         var portateOrdinateService = new PortateOrdinateService(portataOrdinataRepo);
-/*
-        var utente = utenteRepo.Ottieni("Umbe");
-        var ordine = ordineRepo.Ottieni(1L);
-        var portata = portataRepo.Ottieni("Lasagna");
-        */
-        /*
-        utente.Nome = "nuovo";
-        utenteRepo.Modifica(utente);
-        utenteRepo.Save();
-        */
+
+        
         var amministratore = new Utente();
         amministratore.Ruolo = Ruolo.Amministratore;
         amministratore.Nome = "Amministratore";
@@ -57,7 +49,7 @@ public class RepositoryExample : IProject
         var antipasto = CreaPortata("Tagliere", 12, Tipologia.Antipasto,portataRepo);
         var dolce = CreaPortata("Tiramisu", 5.5M, Tipologia.Dolce,portataRepo);
         var primo2 = CreaPortata( "Tagliatelle", 12.5M, Tipologia.Primo,portataRepo);
-        var vino = CreaPortata("Vino", 10, Tipologia.Vino,portataRepo);
+        var vino = CreaPortata("Vino", 10, Tipologia.Bevande,portataRepo);
         
         nuovaPortataOrdinata.Add(new PortataOrdinata
         {
@@ -155,9 +147,5 @@ public class RepositoryExample : IProject
         portataRepo.Save();
         return portata;
     }
-
-    public Task RunProjectAsync()
-    {
-        throw new NotImplementedException();
-    }
+    
 }

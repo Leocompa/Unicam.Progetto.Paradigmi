@@ -17,7 +17,7 @@ public static class ServiceExtension
                 assembly.GetName().Name == "Paradigmi.Application")
         );
 
-        //TODO services
+        
         services.AddScoped<IUtenteService, UtenteService>();
         services.AddScoped<ITokenService, TokenService>();
         services.AddScoped<IOrdineService, OrdineService>();

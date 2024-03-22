@@ -15,7 +15,10 @@ public class PortateService : IPortateService
     }
     public Portata CreaPortata(string nome, decimal prezzo, Tipologia tipo)
     {
-        //TODO controllare se nome portata già esistente
+        if (_portataRepository.Ottieni(nome) != null)
+        {
+            throw new ArgumentException("Esista gia' una portata con quel nome");
+        }
         var portata = new Portata(nome, prezzo, tipo);
         
         _portataRepository.Aggiungi(portata);

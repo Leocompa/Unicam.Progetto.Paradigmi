@@ -23,12 +23,11 @@ public class UtenteService : IUtenteService
         return _utenteRepository.GetUtenti(from, num, name, out totalNum);
     }
 
-    public Task AddUtenteAsync(Utente utente)
+    public void AddUtente(Utente utente)
     {
-        //TODO verifica se metodo async
+        
         _utenteRepository.Aggiungi(utente);
         _utenteRepository.Save();
-        return Task.CompletedTask;
     }
 
 

@@ -7,7 +7,7 @@ namespace Paradigmi.Application.Responses;
 
 public class CreateOrdineResponse
 {
-    // public OrdineDto Ordine { get; set; } = null!;
+    
     public int NumeroOrdine { get; set; }
     public Address Indirizzo { get; set; }
     public decimal CostoTotale { get; set; }

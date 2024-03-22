@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using Paradigmi.Application.Abstractions.Services;
 using Paradigmi.Application.Factories;
 using Paradigmi.Application.Models.Requests;
@@ -22,6 +23,10 @@ public class TokenController : Controller
     [Route("create")]
     public IActionResult Create(CreateTokenRequest request)
     {
+        if (request.Email.IsNullOrEmpty())
+        {
+            return BadRequest(ResponseFactory.WithError("Il campo email non puo' essere nullo"));
+        }
         string token = _tokenService.CreateToken(request);
         return Ok(ResponseFactory.WithSuccess(new CreateTokenResponse(token)));
     }

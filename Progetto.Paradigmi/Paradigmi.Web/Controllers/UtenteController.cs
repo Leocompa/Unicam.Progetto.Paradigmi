@@ -25,17 +25,35 @@ public class UtenteController : ControllerBase
     [Route("new")]
     public async Task<IActionResult> CreateUtente(CreateUtenteRequest request, Ruolo ruolo)
     {
-        //var claimsIdentity = this.User.Identity as ClaimsIdentity;
-        //string idUtente = claimsIdentity.Claims.First(claim => claim.Type == "id_utente").Value;
-        //TODO parte di validazione
+        var claimsIdentity = User.Identity as ClaimsIdentity;
+        var claimRuolo = claimsIdentity.Claims.FirstOrDefault(claim => claim.Type == "ruolo");
+        if (ruolo == Ruolo.Amministratore)
+        {
+            if (claimRuolo != null)
+            {
+                if (claimRuolo.Value == Ruolo.Amministratore.ToString())
+                {
+                    var utenteAmministratore = request.ToEntity(ruolo);
+                    _utenteService.AddUtente(utenteAmministratore);
+
+                    var responseAmministratore = new CreateUtenteResponse();
+                    responseAmministratore.Utente = new Application.Models.Dtos.UtenteDto(utenteAmministratore);
+                    return Ok(ResponseFactory.WithSuccess(responseAmministratore));
+                }
+            }
+            else
+            {
+                return BadRequest(
+                    ResponseFactory.WithError(
+                        "devi essere autenticato come amministratore per creare un nuovo amministratore"));
+            }
+        }
 
         var utente = request.ToEntity(ruolo);
-        await _utenteService.AddUtenteAsync(utente);
+        _utenteService.AddUtente(utente);
 
         var response = new CreateUtenteResponse();
         response.Utente = new Application.Models.Dtos.UtenteDto(utente);
         return Ok(ResponseFactory.WithSuccess(response));
     }
-    
-    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
 }

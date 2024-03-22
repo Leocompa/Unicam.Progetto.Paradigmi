@@ -138,8 +138,7 @@ namespace Paradigmi.Application.Services
                     {
                         throw new ArgumentException("parametro email non valido");
                     }
-
-                    Debug.Assert(dataInizio != null, nameof(dataInizio) + " != null");
+                    
                     return _ordineRepository.GetOrdiniCliente(from, num, (DateOnly)dataInizio, (DateOnly)dataFine,
                         out totalNum, email);
                 default:

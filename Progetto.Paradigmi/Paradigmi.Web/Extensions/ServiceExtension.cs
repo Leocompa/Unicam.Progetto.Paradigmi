@@ -74,7 +74,7 @@ namespace Paradigmi.Web.Extensions
 
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
-                        //TODO
+                        
                         ValidateIssuer = true,
                         ValidateLifetime = true,
                         ValidateAudience = false,

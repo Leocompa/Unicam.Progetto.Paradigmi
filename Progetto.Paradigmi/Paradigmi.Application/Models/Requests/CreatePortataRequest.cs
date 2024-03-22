@@ -6,5 +6,5 @@ public class CreatePortataRequest
 {
     public string Nome { get; set; }
     public decimal Prezzo { get; set; }
-    //public Tipologia Tipo { get; set; }
+    
 }

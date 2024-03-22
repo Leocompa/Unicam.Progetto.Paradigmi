@@ -1,7 +1,6 @@
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Paradigmi.Application.Abstractions.Services;
 using Paradigmi.Application.Factories;
@@ -48,7 +47,7 @@ public class PortataOrdinataController : ControllerBase
             Ordine? ordine = _ordineService.GetOrdine(numeroOrdine);
             if (ordine != null)
             {
-                var claimEmail = claimsIdentity.Claims.FirstOrDefault(claim => claim.Type == "email");
+                var claimEmail = claimsIdentity.Claims.FirstOrDefault(claim => claim.Type.Contains("email"));
                 if (claimEmail == null)
                 {
                     return BadRequest(ResponseFactory.WithError("email non trovata per l'utente."));

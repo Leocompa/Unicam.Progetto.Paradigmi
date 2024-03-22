@@ -7,8 +7,10 @@
         Secondo,
         Contorno,
         Dolce,
-        Vino
+        Bevande
     }
+    
+    
 
     public static class TipologiaExtensions
     {
@@ -24,9 +26,10 @@
                 return Tipologia.Contorno;
             if (tipo.ToLower().Equals("dolce".ToLower()))
                 return Tipologia.Dolce;
-            if (tipo.ToLower().Equals("vino".ToLower()))
-                return Tipologia.Vino;
+            if (tipo.ToLower().Equals("bevande".ToLower()))
+                return Tipologia.Bevande;
             throw new ArgumentException(" tipologia non valida: " + tipo);
         }
+        
     }
 }
