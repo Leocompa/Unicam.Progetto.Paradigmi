@@ -73,7 +73,7 @@ public class OrdineController : ControllerBase
             {
                 if (storicoRequest.EmailUtenteCercato != null)
                 {
-                    var claim = claimsIdentity.Claims.FirstOrDefault(claim => claim.Type.Equals("email"));
+                    var claim = claimsIdentity.Claims.FirstOrDefault(claim => claim.Type.Contains("email"));
                     if (claim == null)
                     {
                         return BadRequest(ResponseFactory.WithError("errore nullo"));
@@ -87,14 +87,17 @@ public class OrdineController : ControllerBase
                 }
                 else
                 {
-                    var claim = claimsIdentity.Claims.FirstOrDefault(claim => claim.Type.Equals("email"));
+                    var claim = claimsIdentity.Claims.FirstOrDefault(claim => claim.Type.Contains("email"));
                     if (claim!= null)
                     {
                         storicoRequest.EmailUtenteCercato = claim.Value;
                     }
+                    else
+                    {
 
-                    return BadRequest(ResponseFactory.WithError(
-                        "email non trovata"));
+                        return BadRequest(ResponseFactory.WithError(
+                            "email non trovata"));
+                    }
                 }
             }
 

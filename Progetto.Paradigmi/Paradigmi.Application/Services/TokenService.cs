@@ -26,6 +26,7 @@ public class TokenService : ITokenService
         var claims = new List<Claim>();
         
         claims.Add(new Claim("email", request.Email));
+        Console.WriteLine("email = "+request.Email);
         Utente? utente = _utenteService.GetUtente(request.Email);
         claims.Add(new Claim("ruolo", utente == null ? Ruolo.Cliente.ToString() : utente.Ruolo.ToString()));
 
