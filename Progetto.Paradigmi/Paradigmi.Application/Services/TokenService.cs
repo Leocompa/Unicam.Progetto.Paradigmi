@@ -20,30 +20,53 @@ public class TokenService : ITokenService
         _jwtAuthenticationOption = jwtAuthOptions.Value;
         _utenteService = utenteService;
     }
-    
+
     public string CreateToken(CreateTokenRequest request)
     {
         var claims = new List<Claim>();
-        
+
         claims.Add(new Claim("email", request.Email));
         Utente? utente = _utenteService.GetUtente(request.Email);
         claims.Add(new Claim("ruolo", utente == null ? Ruolo.Cliente.ToString() : utente.Ruolo.ToString()));
 
+        if (utente != null)
+        {
+            if (request.Password != null)
+            {
+                if (_utenteService.verificaPassword(utente, request.Password))
+                {
+                    claims.Add(new Claim("ruolo", utente.Ruolo.ToString()));
+                }
+                else
+                {
+                    throw new ArgumentException("Password non corretta");
+                }
+            }
+            else
+            {
+                throw new ArgumentException("Password richiesta per l'account "+utente.Email);
+            }
+        }
+        else
+        {
+            claims.Add(new Claim("ruolo", Ruolo.Cliente.ToString()));
+        }
+
         var securityKey = new SymmetricSecurityKey(
             Encoding.UTF8.GetBytes(_jwtAuthenticationOption.Key)
-            );
-        
+        );
+
         var credentials = new SigningCredentials(securityKey,
             SecurityAlgorithms.HmacSha256);
-        
+
         var securityToken = new JwtSecurityToken(_jwtAuthenticationOption.Issuer
             , null
             , claims
             , expires: DateTime.Now.AddMinutes(30)
-            ,signingCredentials: credentials
-            );
+            , signingCredentials: credentials
+        );
         var token = new JwtSecurityTokenHandler().WriteToken(securityToken);
-        
+
         return token;
     }
 }

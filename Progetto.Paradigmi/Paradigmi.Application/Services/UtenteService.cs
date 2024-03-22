@@ -35,4 +35,9 @@ public class UtenteService : IUtenteService
     {
         return _utenteRepository.Ottieni(email);
     }
+
+    public bool verificaPassword(Utente utente, string requestPassword)
+    {
+        return _utenteRepository.CheckPassword(utente, requestPassword);
+    }
 }

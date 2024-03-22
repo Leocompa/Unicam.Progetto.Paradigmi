@@ -23,7 +23,7 @@ public class UtenteController : ControllerBase
 
     [HttpPost]
     [Route("new")]
-    public async Task<IActionResult> CreateUtente(CreateUtenteRequest request, Ruolo ruolo)
+    public IActionResult CreateUtente(CreateUtenteRequest request, Ruolo ruolo)
     {
         var claimsIdentity = User.Identity as ClaimsIdentity;
         var claimRuolo = claimsIdentity.Claims.FirstOrDefault(claim => claim.Type == "ruolo");

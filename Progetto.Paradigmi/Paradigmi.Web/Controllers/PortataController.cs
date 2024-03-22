@@ -25,7 +25,7 @@ public class PortataController : ControllerBase
     [HttpPost]
     [Route("newPortata")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    public async Task<IActionResult> CreatePortata(CreatePortataRequest portataRequest, Tipologia tipologia)
+    public IActionResult CreatePortata(CreatePortataRequest portataRequest, Tipologia tipologia)
     {
         var claimsIdentity = User.Identity as ClaimsIdentity;
         string claimRuolo = claimsIdentity.Claims.First(claim => claim.Type == "ruolo").Value;
@@ -45,7 +45,7 @@ public class PortataController : ControllerBase
 
     [HttpPost]
     [Route("getPortate")]
-    public async Task<IActionResult> GetPortate(string? nome, Tipologia? tipologia)
+    public IActionResult GetPortate(string? nome, Tipologia? tipologia)
     {
         List<Portata> portate = _portateService.GetPortate(nome, tipologia);
         return Ok(ResponseFactory.WithSuccess(portate));

@@ -30,7 +30,7 @@ public class OrdineController : ControllerBase
 
     [HttpPost]
     [Route("newOrdine")]
-    public async Task<IActionResult> CreateOrdine(CreateOrdineRequest ordineRequest)
+    public IActionResult CreateOrdine(CreateOrdineRequest ordineRequest)
     {
         int pastoCompleto = 0;
         decimal costoTotaleScontato = 0;
@@ -63,7 +63,7 @@ public class OrdineController : ControllerBase
 
     [HttpPost]
     [Route("get/StoricoOrdini")]
-    public async Task<IActionResult> GetOrdini(CreateStoricoRequest storicoRequest)
+    public IActionResult GetOrdini(CreateStoricoRequest storicoRequest)
     {
         if (storicoRequest.RighePerPagina <= 0 )
         {
@@ -132,7 +132,7 @@ public class OrdineController : ControllerBase
 
     [HttpPost]
     [Route("getOrdineByNumeroOrdine")]
-    public async Task<IActionResult> GetOrdineByNumeroOrdine(int numeroOrdine)
+    public IActionResult GetOrdineByNumeroOrdine(int numeroOrdine)
     {
         Ordine? ordine = _ordineService.GetOrdine(numeroOrdine);
         if (ordine == null)

@@ -9,9 +9,6 @@ namespace Progetto.Paradigmi.Test.Example;
 
 public class RepositoryExample : IProject
 {
-    public async Task RunExampleAsync()
-    {
-    }
 
     public void RunProject()
     {

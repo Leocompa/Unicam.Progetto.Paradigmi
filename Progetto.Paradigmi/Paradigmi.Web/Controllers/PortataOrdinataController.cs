@@ -25,7 +25,7 @@ public class PortataOrdinataController : ControllerBase
 
     [HttpPost]
     [Route("getPortateByNumeroOrdine")]
-    public async Task<IActionResult> GetPortateByNumeroOrdine(int numeroOrdine)
+    public IActionResult GetPortateByNumeroOrdine(int numeroOrdine)
     {
         List<PortataOrdinata> portateOrdinate = new List<PortataOrdinata>();
 

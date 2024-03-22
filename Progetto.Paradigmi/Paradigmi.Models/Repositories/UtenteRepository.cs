@@ -22,4 +22,22 @@ public class UtenteRepository : GenericRepository<Utente>
         var query = _context.Utenti.AsQueryable();
         return query.OrderBy(utente => utente.Email).ToList();
     }
+
+    public bool CheckPassword(Utente utente, string requestPassword)
+    {
+        if (string.IsNullOrEmpty(utente.Email))
+        {
+            return false;
+        }
+        
+        var user = _context.Utenti.FirstOrDefault(user => user.Email == utente.Email);
+        
+        if (user == null)
+        {
+            return false;
+        }
+        
+        return user.Password == requestPassword;
+    }
+
 }
