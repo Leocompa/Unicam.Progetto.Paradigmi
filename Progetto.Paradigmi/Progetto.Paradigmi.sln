@@ -37,4 +37,7 @@ Global
 		{D19BDDC9-E23B-450D-9BEC-3ECA821818BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D19BDDC9-E23B-450D-9BEC-3ECA821818BB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
+	GlobalSection(RiderSharedRunConfigurations) = postSolution
+		File = Paradigmi.Web\Paradigmi.Web - Dev.run.xml
+	EndGlobalSection
 EndGlobal

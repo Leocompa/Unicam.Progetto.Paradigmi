@@ -4,5 +4,5 @@ namespace Paradigmi.Application.Abstractions.Services;
 
 public interface ITokenService
 {
-    string CreateToken(CreateTokenRequest request);
+    string CreateToken(CreateTokenRequest request, out string messaggio);
 }

@@ -27,7 +27,9 @@ public class TokenController : Controller
         {
             return BadRequest(ResponseFactory.WithError("Il campo email non puo' essere nullo"));
         }
-        string token = _tokenService.CreateToken(request);
-        return Ok(ResponseFactory.WithSuccess(new CreateTokenResponse(token)));
+
+        string messaggio = "";
+        string token = _tokenService.CreateToken(request, out messaggio);
+        return Ok(ResponseFactory.WithSuccess(new CreateTokenResponse(token, $"Accesso eseguito come {messaggio}")));
     }
 }

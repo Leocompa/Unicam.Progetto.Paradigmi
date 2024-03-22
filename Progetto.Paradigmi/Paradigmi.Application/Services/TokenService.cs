@@ -21,14 +21,14 @@ public class TokenService : ITokenService
         _utenteService = utenteService;
     }
 
-    public string CreateToken(CreateTokenRequest request)
+    public string CreateToken(CreateTokenRequest request, out string messaggio)
     {
         var claims = new List<Claim>();
 
         claims.Add(new Claim("email", request.Email));
         Utente? utente = _utenteService.GetUtente(request.Email);
         claims.Add(new Claim("ruolo", utente == null ? Ruolo.Cliente.ToString() : utente.Ruolo.ToString()));
-
+        
         if (utente != null)
         {
             if (request.Password != null)
@@ -36,6 +36,7 @@ public class TokenService : ITokenService
                 if (_utenteService.verificaPassword(utente, request.Password))
                 {
                     claims.Add(new Claim("ruolo", utente.Ruolo.ToString()));
+                    messaggio = utente.Ruolo.ToString();
                 }
                 else
                 {
@@ -50,6 +51,8 @@ public class TokenService : ITokenService
         else
         {
             claims.Add(new Claim("ruolo", Ruolo.Cliente.ToString()));
+            messaggio = $"nuovo utente di tipo {Ruolo.Cliente.ToString()}";
+
         }
 
         var securityKey = new SymmetricSecurityKey(

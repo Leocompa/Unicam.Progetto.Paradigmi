@@ -8,20 +8,27 @@
 <body>
     <h1>Progetto "Programmazione Enterprise A.A. 2023/2024"</h1>
     <h2>Descrizione del Progetto</h2>
-    <p>Il progetto "Ingegneria del Software A.A. 2023/2024" si propone di sviluppare una piattaforma per la valorizzazione e digitalizzazione di un territorio comunale. La piattaforma permetterà il caricamento di informazioni di vario tipo, tra cui contenuti culturali, turistici, sportivi e altro, al fine di interessare sia i residenti che i visitatori del territorio.</p>
+    <p>Il progetto "Programmazione Enterprise A.A. 2023/2024" propone di sviluppare una Web Api per effettuare delle ordinazioni in un ristorante.
+        L'applicazione permetterà di effettuare diverse chiamate, come la creazione di un nuovo utente cliente o amministratore,
+        un'autenticazione JWT, una lista delle portate create dall'amministratore, una lista degli ordini effettuati dagli utenti
+        o la visualizzazione di tutti gli ordini.</p>
     <h2>Installazione e Utilizzo</h2>
     <ol>
         <li>Clona il repository.</li>
-        <li>Esegui <code>mvn clean install</code> per installare le dipendenze.</li>
-        <li>Avvia il server con <code>java -jar [percorso file.jar]</code>.</li>
+        <li>Eseguire il dump.sql situato al percorso <code>Progetto.Paradigmi/Paradigmi.Models/DumpDatabase/dump.sql</code></li>
+        <li>Imposta la configurazione dal file <code>Progetto.Paradigmi/Paradigmi.Web/Paradigmi.Web - Dev.run.xml</code>.</li>
+        <li>Avviare l'applicazione<code>Paradigmi.Web - Dev</code>.</li>
     </ol>
-    <p>Una volta eseguito il terzo comando, l'applicazione si avvierà automaticamente in due schermate: una dedicata alla piattaforma con l'interfaccia grafica Swagger e una dedicata al database H2.</p>
-    <p>Per accedere al database H2 e visualizzare i dati, utilizza le seguenti credenziali:</p>
+    <p>Una volta avviata si aprirà automaticamente la schermata con l'interfaccia UI Swagger dove si potranno effettuare
+    le varie chiamate http disponibili nell'applicazione.</p>
+    <p>Al primo accesso si dovrà creare un Token JWT per autenticarsi come amministratore di defaul con le seguenti credenziali:</p>
     <ul>
-        <li><strong>Username</strong>: <code>user</code></li>
-        <li><strong>Password</strong>: <code>pass</code></li>
+        <li><strong>Email</strong>: <code>changeMe@admin.com</code></li>
+        <li><strong>Password</strong>: <code>Adm1n!!</code></li>
     </ul>
-    <p>Nell'interfaccia Swagger è possibile effettuare chiamate HTTP con i metodi messi a disposizione.</p>
+    <p>Una volta autenticato sarà possibile creare dei nuovi amministratori(consigliato).</p>
+    <p>E' possibile creare degli utenti con il ruolo di <strong>"cliente"</strong> senza effettuare l'autenticazione JWT.<br>
+        I Clienti che vogliono eseguire operazioni, ad esempio un ordine, dovranno creare un Token JWT, nel caso in cui son </p>
     <p>Il gestore del database viene creato in automatico e avrà le seguenti credenziali:</p>
     <ul>
         <li><strong>Username</strong>: <code>admin</code></li>

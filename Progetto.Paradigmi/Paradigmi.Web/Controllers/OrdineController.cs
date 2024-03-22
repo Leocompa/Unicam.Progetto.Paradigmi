@@ -86,7 +86,7 @@ public class OrdineController : ControllerBase
                     var claim = claimsIdentity.Claims.FirstOrDefault(claim => claim.Type.Contains("email"));
                     if (claim == null)
                     {
-                        return BadRequest(ResponseFactory.WithError("errore nullo"));
+                        return BadRequest(ResponseFactory.WithError("autenticazione non riuscita"));
                     }
 
                     if (storicoRequest.EmailUtenteCercato != claim.Value)
