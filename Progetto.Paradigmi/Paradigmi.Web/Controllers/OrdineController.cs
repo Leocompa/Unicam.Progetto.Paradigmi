@@ -8,7 +8,6 @@ using Paradigmi.Application.Models.Dtos;
 using Paradigmi.Application.Models.Requests;
 using Paradigmi.Application.Models.Responses;
 using Paradigmi.Application.Responses;
-using Paradigmi.Application.Services;
 using Paradigmi.Models.Entities;
 
 namespace Paradigmi.Web.Controllers;
@@ -36,16 +35,18 @@ public class OrdineController : ControllerBase
         decimal costoTotaleScontato = 0;
         decimal costoTotale = 0;
         List<PortataOrdinata> portateOrdinate = new List<PortataOrdinata>();
-        foreach (var portata in ordineRequest.portateOrdinate)
+        foreach (var portata in ordineRequest.PortateOrdinate)
         {
             if (portata.Quantita <= 0)
             {
-                return BadRequest(ResponseFactory.WithError($"la quantita' ordinata della portata {portata.NomePortata} deve essere maggiore di 0"));
+                return BadRequest(ResponseFactory.WithError(
+                    $"la quantita' ordinata della portata {portata.NomePortata} deve essere maggiore di 0"));
             }
+
             portateOrdinate.Add(portata.ToEntity());
         }
 
-        int numeroOrdine = _ordineService.AddOrdine(ordineRequest.emailUtente, portateOrdinate,
+        int numeroOrdine = _ordineService.AddOrdine(ordineRequest.EmailUtente, portateOrdinate,
             ordineRequest.IndirizzoConsegna, out costoTotaleScontato, out costoTotale, out pastoCompleto);
 
         List<CreatePortateOrdinateRigaResponse>
@@ -53,7 +54,7 @@ public class OrdineController : ControllerBase
         foreach (var portata in portateOrdinate)
         {
             portateOrdinateResponses.Add(new CreatePortateOrdinateRigaResponse(portata.PortataNome, portata.Quantita,
-                _portateOrdinateService.getCostoPortata(numeroOrdine, portata.PortataNome)));
+                _portateOrdinateService.GetCostoPortata(numeroOrdine, portata.PortataNome)));
         }
 
         var response = new CreateOrdineResponse(numeroOrdine, ordineRequest.IndirizzoConsegna, costoTotale,
@@ -65,14 +66,16 @@ public class OrdineController : ControllerBase
     [Route("get/StoricoOrdini")]
     public IActionResult GetOrdini(CreateStoricoRequest storicoRequest)
     {
-        if (storicoRequest.RighePerPagina <= 0 )
+        if (storicoRequest.RighePerPagina <= 0)
         {
             return BadRequest(ResponseFactory.WithError("il numero di righe per pagine deve essere maggiore di 0"));
         }
+
         if (storicoRequest.DataInizio.Value.CompareTo(storicoRequest.DataFine.Value) > 0)
         {
             return BadRequest(ResponseFactory.WithError("La data di inizio è successiva alla data di fine"));
         }
+
         var claimsIdentity = User.Identity as ClaimsIdentity;
         var claimRuolo = claimsIdentity.Claims.FirstOrDefault(claim => claim.Type == "ruolo");
         if (claimRuolo != null)

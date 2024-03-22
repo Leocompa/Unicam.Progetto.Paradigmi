@@ -51,13 +51,12 @@ namespace Paradigmi.Web.Extensions
                                 Id = "Bearer"
                             }
                         },
-                        new string[]{}
+                        new string[] { }
                     }
-
                 });
             });
             services.AddFluentValidationAutoValidation();
-            
+
             var jwtAuthenticationOption = new JwtAuthenticationOption();
             configuration.GetSection("JwtAuthentication").Bind(jwtAuthenticationOption);
 
@@ -74,7 +73,6 @@ namespace Paradigmi.Web.Extensions
 
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
-                        
                         ValidateIssuer = true,
                         ValidateLifetime = true,
                         ValidateAudience = false,
@@ -93,7 +91,6 @@ namespace Paradigmi.Web.Extensions
             service.Configure<JwtAuthenticationOption>(
                 configuration.GetSection("JwtAuthentication")
             );
-            
         }
     }
 }

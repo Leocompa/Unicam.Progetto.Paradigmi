@@ -21,5 +21,4 @@ public class BadRequestResultFactory : BadRequestObjectResult
         var response = (BadResponse)Value;
         response.Errors = retErrors;
     }
-    
 }

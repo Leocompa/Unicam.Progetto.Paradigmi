@@ -2,7 +2,6 @@ using System.Net;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Hosting;
 using Paradigmi.Application.Factories;
 
@@ -15,17 +14,11 @@ public static class MiddlewareExtension
         if (app.Environment.IsDevelopment())
         {
             app.UseSwagger();
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json","Progetto Paradigmi" );
-            });
+            app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "Progetto Paradigmi"); });
         }
 
-        app.Use(async (context, next) =>
-        {
-            await next.Invoke();
-        });
-        
+        app.Use(async (context, next) => { await next.Invoke(); });
+
         app.UseHttpsRedirection();
         app.UseAuthentication();
         app.UseAuthorization();
@@ -47,5 +40,4 @@ public static class MiddlewareExtension
         app.MapControllers();
         return app;
     }
-    
 }

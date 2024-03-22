@@ -25,7 +25,6 @@ public class UtenteService : IUtenteService
 
     public void AddUtente(Utente utente)
     {
-        
         _utenteRepository.Aggiungi(utente);
         _utenteRepository.Save();
     }
@@ -36,7 +35,7 @@ public class UtenteService : IUtenteService
         return _utenteRepository.Ottieni(email);
     }
 
-    public bool verificaPassword(Utente utente, string requestPassword)
+    public bool VerificaPassword(Utente utente, string requestPassword)
     {
         return _utenteRepository.CheckPassword(utente, requestPassword);
     }

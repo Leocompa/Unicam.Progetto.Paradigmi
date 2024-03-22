@@ -14,7 +14,7 @@ public class UtenteRepository : GenericRepository<Utente>
         var query = _context.Utenti.AsQueryable();
         if (!string.IsNullOrEmpty(filter)) query = query.Where(w => w.Email.ToLower().Contains(filter.ToLower()));
         totalNum = query.Count();
-        return query.OrderBy(utente => utente.Email).Skip(from*num).Take(Math.Min(num,totalNum-from)).ToList();
+        return query.OrderBy(utente => utente.Email).Skip(from * num).Take(Math.Min(num, totalNum - from)).ToList();
     }
 
     public List<Utente> GetUtenti()
@@ -29,15 +29,14 @@ public class UtenteRepository : GenericRepository<Utente>
         {
             return false;
         }
-        
+
         var user = _context.Utenti.FirstOrDefault(user => user.Email == utente.Email);
-        
+
         if (user == null)
         {
             return false;
         }
-        
+
         return user.Password == requestPassword;
     }
-
 }

@@ -15,6 +15,5 @@ public class CreateTokenRequestValidator : AbstractValidator<CreateTokenRequest>
             .WithMessage("Il campo email non può essere nullo")
             .RegEx(@"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$"
                 , "Il campo email non è nel formato corretto");
-        
     }
 }

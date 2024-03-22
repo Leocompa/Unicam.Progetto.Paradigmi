@@ -2,7 +2,7 @@
 
 public class PortataOrdinata
 {
-    public int OrdinazioneId { get; set; } 
+    public int OrdinazioneId { get; set; }
 
     public string PortataNome { get; set; } = String.Empty;
     public int Quantita { get; set; } = 1;
@@ -22,6 +22,5 @@ public class PortataOrdinata
 
     public PortataOrdinata()
     {
-        
     }
 }

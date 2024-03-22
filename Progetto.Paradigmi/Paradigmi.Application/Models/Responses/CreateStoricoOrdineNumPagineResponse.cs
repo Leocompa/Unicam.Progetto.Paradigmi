@@ -1,5 +1,3 @@
-using Paradigmi.Models.Entities;
-
 namespace Paradigmi.Application.Models.Responses;
 
 public class CreateStoricoOrdineNumPagineResponse
@@ -8,7 +6,8 @@ public class CreateStoricoOrdineNumPagineResponse
     public int PaginaCorrente { get; set; }
     public int PagineTotali { get; set; }
 
-    public CreateStoricoOrdineNumPagineResponse(List<CreateStoricoOrdineResponse> storicoOrdine, int paginaCorrente, int pagineTotali )
+    public CreateStoricoOrdineNumPagineResponse(List<CreateStoricoOrdineResponse> storicoOrdine, int paginaCorrente,
+        int pagineTotali)
     {
         StoricoOrdine = storicoOrdine;
         PaginaCorrente = paginaCorrente;

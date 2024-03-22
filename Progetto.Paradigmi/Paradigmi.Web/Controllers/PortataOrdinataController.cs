@@ -52,20 +52,21 @@ public class PortataOrdinataController : ControllerBase
                 {
                     return BadRequest(ResponseFactory.WithError("email non trovata per l'utente."));
                 }
+
                 string email = claimEmail.Value;
-                if(email.ToLower().Equals(ordine.ClienteEmail.ToLower()))
+                if (email.ToLower().Equals(ordine.ClienteEmail.ToLower()))
                 {
                     portateOrdinate = _portateOrdinateService.GetPortateOrdine(numeroOrdine);
                 }
             }
         }
+
         List<CreatePortateOrdinateResponse> portateOrdinateResponses = new List<CreatePortateOrdinateResponse>();
         foreach (var portata in portateOrdinate)
         {
             portateOrdinateResponses.Add(new CreatePortateOrdinateResponse(portata.PortataNome, portata.Quantita));
         }
-        
+
         return Ok(ResponseFactory.WithSuccess(portateOrdinateResponses));
     }
-    
 }

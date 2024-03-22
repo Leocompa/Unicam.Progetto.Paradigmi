@@ -14,7 +14,7 @@ public class PortataRepository : GenericRepository<Portata>
         var query = _context.Portate.AsQueryable();
         if (tipologia != null) query = query.Where(w => w.Tipo.Equals(tipologia));
         totalNum = query.Count();
-        return query.OrderBy(portata => portata.Nome).Skip(from*num).Take(Math.Min(num,totalNum-from)).ToList();
+        return query.OrderBy(portata => portata.Nome).Skip(from * num).Take(Math.Min(num, totalNum - from)).ToList();
     }
 
     public List<Portata> GetPortateByName(int from, int num, string? filter, out int totalNum)
@@ -22,7 +22,7 @@ public class PortataRepository : GenericRepository<Portata>
         var query = _context.Portate.AsQueryable();
         if (!string.IsNullOrEmpty(filter)) query = query.Where(w => w.Nome.ToLower().Contains(filter.ToLower()));
         totalNum = query.Count();
-        return query.OrderBy(portata => portata.Nome).Skip(from*num).Take(Math.Min(num,totalNum-from)).ToList();
+        return query.OrderBy(portata => portata.Nome).Skip(from * num).Take(Math.Min(num, totalNum - from)).ToList();
     }
 
     public List<Portata> GetPortate(string? nome, Tipologia? tipologia)

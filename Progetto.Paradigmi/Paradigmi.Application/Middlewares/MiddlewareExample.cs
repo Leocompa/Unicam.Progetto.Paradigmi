@@ -13,9 +13,10 @@ public class MiddlewareExample
     {
         _next = next;
     }
-    
+
     public async Task Invoke(HttpContext context, IOrdineService ordineService
-        , IConfiguration configuration, IPortateService portateService, IUtenteService utenteService, IPortateOrdinateService portateOrdinateService)
+        , IConfiguration configuration, IPortateService portateService, IUtenteService utenteService,
+        IPortateOrdinateService portateOrdinateService)
     {
         context.RequestServices.GetRequiredService<IOrdineService>();
         context.RequestServices.GetRequiredService<IPortateService>();

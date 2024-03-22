@@ -6,20 +6,18 @@ namespace Paradigmi.Models.Repositories;
 
 public class PortateOrdinateRepository : GenericRepository<PortataOrdinata>
 {
-    private readonly PortataRepository _portataRepository;
     public PortateOrdinateRepository(MyDbContext context,PortataRepository portataRepository) : base(context)
     {
-        _portataRepository = portataRepository;
     }
     
-    public List<PortataOrdinata> getPortateOrdinate(int idOrdine)
+    public List<PortataOrdinata> GetPortateOrdinate(int idOrdine)
     {
         var query = _context.PortateOrdinate.AsQueryable();
         query=query.Where(portata => portata.OrdinazioneId == idOrdine);
         return query.OrderBy(ordinata => ordinata.Turno).ToList();
     }
 
-    public decimal getCosto(int idOrdine,string portataNome)
+    public decimal GetCosto(int idOrdine,string portataNome)
     {
         decimal costoTotale = _context.PortateOrdinate
             .Where(portata => portata.PortataNome.Equals(portataNome) && portata.OrdinazioneId == idOrdine)

@@ -28,12 +28,12 @@ public class TokenService : ITokenService
         claims.Add(new Claim("email", request.Email));
         Utente? utente = _utenteService.GetUtente(request.Email);
         claims.Add(new Claim("ruolo", utente == null ? Ruolo.Cliente.ToString() : utente.Ruolo.ToString()));
-        
+
         if (utente != null)
         {
             if (request.Password != null)
             {
-                if (_utenteService.verificaPassword(utente, request.Password))
+                if (_utenteService.VerificaPassword(utente, request.Password))
                 {
                     claims.Add(new Claim("ruolo", utente.Ruolo.ToString()));
                     messaggio = utente.Ruolo.ToString();
@@ -45,14 +45,12 @@ public class TokenService : ITokenService
             }
             else
             {
-                throw new ArgumentException("Password richiesta per l'account "+utente.Email);
+                throw new ArgumentException($"Password richiesta per l'account {utente.Email}");
             }
         }
         else
         {
-            claims.Add(new Claim("ruolo", Ruolo.Cliente.ToString()));
-            messaggio = $"nuovo utente di tipo {Ruolo.Cliente.ToString()}";
-
+            throw new ArgumentException($"Utente non registrato {request.Email}");
         }
 
         var securityKey = new SymmetricSecurityKey(

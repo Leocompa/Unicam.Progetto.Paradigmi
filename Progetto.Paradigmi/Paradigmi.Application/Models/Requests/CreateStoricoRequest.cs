@@ -1,5 +1,3 @@
-using Paradigmi.Models.Entities;
-
 namespace Paradigmi.Application.Models.Requests;
 
 public class CreateStoricoRequest
@@ -9,5 +7,4 @@ public class CreateStoricoRequest
     public DateOnly? DataInizio { get; set; }
     public DateOnly? DataFine { get; set; }
     public string? EmailUtenteCercato { get; set; }
-    
 }

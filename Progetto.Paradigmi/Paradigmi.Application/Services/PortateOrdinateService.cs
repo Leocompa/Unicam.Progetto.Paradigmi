@@ -1,5 +1,4 @@
 ﻿using Paradigmi.Application.Abstractions.Services;
-using Paradigmi.Application.Models.Requests;
 using Paradigmi.Models.Entities;
 using Paradigmi.Models.Repositories;
 
@@ -16,13 +15,12 @@ public class PortateOrdinateService : IPortateOrdinateService
 
     public List<PortataOrdinata> GetPortateOrdine(int numeroOrdine)
     {
-        return _portateOrdinateRepository.getPortateOrdinate(numeroOrdine);
+        return _portateOrdinateRepository.GetPortateOrdinate(numeroOrdine);
     }
 
 
-    public decimal getCostoPortata(int numeroOrdine, string nomePortata)
+    public decimal GetCostoPortata(int numeroOrdine, string nomePortata)
     {
-        return _portateOrdinateRepository.getCosto(numeroOrdine, nomePortata);
+        return _portateOrdinateRepository.GetCosto(numeroOrdine, nomePortata);
     }
-    
 }

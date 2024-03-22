@@ -9,8 +9,7 @@
         Dolce,
         Bevande
     }
-    
-    
+
 
     public static class TipologiaExtensions
     {
@@ -30,6 +29,5 @@
                 return Tipologia.Bevande;
             throw new ArgumentException(" tipologia non valida: " + tipo);
         }
-        
     }
 }

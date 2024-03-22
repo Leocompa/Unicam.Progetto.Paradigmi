@@ -12,5 +12,4 @@ public class BaseResponse<T>
 
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public T? Result { get; set; } = default;
-
 }

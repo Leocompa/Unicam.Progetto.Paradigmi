@@ -1,4 +1,3 @@
-using Paradigmi.Application.Models.Requests;
 using Paradigmi.Models.Entities;
 
 namespace Paradigmi.Application.Abstractions.Services;

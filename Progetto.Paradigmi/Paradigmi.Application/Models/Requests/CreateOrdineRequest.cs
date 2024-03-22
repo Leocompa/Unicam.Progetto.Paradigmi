@@ -4,10 +4,7 @@ namespace Paradigmi.Application.Models.Requests;
 
 public class CreateOrdineRequest
 {
-    public string emailUtente { get; set; } = null!;
-    public List<CreatePortateOrdinateRequest> portateOrdinate { get; set; }
+    public string EmailUtente { get; set; } = null!;
+    public List<CreatePortateOrdinateRequest> PortateOrdinate { get; set; }
     public Address? IndirizzoConsegna { get; set; } = null!;
-
-
-
 }

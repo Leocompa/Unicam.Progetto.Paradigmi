@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Paradigmi.Application.Abstractions.Services;
-using Paradigmi.Application.Models.Requests;
 using Paradigmi.Models.Entities;
 using Paradigmi.Models.Repositories;
 
@@ -15,9 +12,8 @@ namespace Paradigmi.Application.Services
         private readonly HashSet<Tipologia> _keyScontabili;
 
 
-       
-
-        public OrdineService(OrdineRepository ordineRepository, PortataRepository portataRepository,IConfiguration configuration)
+        public OrdineService(OrdineRepository ordineRepository, PortataRepository portataRepository,
+            IConfiguration configuration)
         {
             _ordineRepository = ordineRepository;
             _portataRepository = portataRepository;
@@ -149,7 +145,7 @@ namespace Paradigmi.Application.Services
                     {
                         throw new ArgumentException("parametro email non valido");
                     }
-                    
+
                     return _ordineRepository.GetOrdiniCliente(from, num, (DateOnly)dataInizio, (DateOnly)dataFine,
                         out totalNum, email);
                 default:

@@ -2,9 +2,8 @@
 
 public class Portata
 {
-    
     public string Nome { get; set; } = String.Empty;
-    public decimal Prezzo { get; set; } 
+    public decimal Prezzo { get; set; }
     public Tipologia Tipo { get; set; }
 
 
@@ -14,5 +13,4 @@ public class Portata
         Prezzo = prezzo;
         Tipo = tipo;
     }
-    
 }

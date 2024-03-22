@@ -8,5 +8,5 @@ public interface IUtenteService
     List<Utente> GetUtenti(int from, int num, string? name, out int totalNum);
     void AddUtente(Utente utente);
     Utente? GetUtente(string email);
-    bool verificaPassword(Utente utente, string requestPassword);
+    bool VerificaPassword(Utente utente, string requestPassword);
 }

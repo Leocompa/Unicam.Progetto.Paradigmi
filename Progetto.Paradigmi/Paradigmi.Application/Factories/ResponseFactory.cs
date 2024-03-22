@@ -21,6 +21,7 @@ public class ResponseFactory
 
         return response;
     }
+
     public static BaseResponse<string?> WithError(Exception exception)
     {
         var response = new BaseResponse<string>();

@@ -4,7 +4,6 @@ namespace Paradigmi.Application.Models.Dtos;
 
 public class OrdineDto
 {
-        
     public string ClienteEmail { get; set; } = String.Empty;
     public DateOnly DataOrdine { get; set; }
     public int NumeroOrdine { get; set; }
@@ -12,15 +11,13 @@ public class OrdineDto
 
     public OrdineDto()
     {
-        
     }
 
     public OrdineDto(Ordine ordine)
     {
-        ClienteEmail= ordine.ClienteEmail;
+        ClienteEmail = ordine.ClienteEmail;
         DataOrdine = ordine.DataOrdine;
         NumeroOrdine = ordine.NumeroOrdine;
         IndirizzoConsegna = ordine.IndirizzoConsegna;
-
     }
 }
