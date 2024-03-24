@@ -29,8 +29,8 @@
     <li>
         <strong>newOrdine</strong>: Creazione di un nuovo ordine da parte di un utente.
         <ul>
-            <li>Parametri richiesti: email dell'utente che effettua l'ordine, elenco delle portate ordinate e un indirizzo di consegna (opzionale).</li>
-            <li>Requisiti di ritorno: numero dell'ordine, indirizzo (se presente), costo totale, costo totale scontato, informazioni sull'ordine (compreso il numero dei pasti completi).</li>
+            <li>Parametri richiesti: elenco delle portate ordinate e un indirizzo di consegna (opzionale).</li>
+            <li>Restituirà: numero dell'ordine, indirizzo (se presente), costo totale, costo totale scontato, informazioni sull'ordine (compreso il numero dei pasti completi).</li>
         </ul>
     </li>
     <li>
@@ -82,7 +82,7 @@
         <strong>create</strong>: Creazione di un nuovo token JWT per l'autenticazione.
         <ul>
             <li>Parametri richiesti: email dell'utente e password.</li>
-            <li>Nota: verrà inviato un messaggio di errore se la mail o la password non rispettano i requisiti.</li>
+            <li>Nota: verrà inviato un messaggio di errore se la mail o la password non sono corretti.</li>
         </ul>
     </li>
 </ul>
@@ -90,9 +90,9 @@
 <h3>Utente:</h3>
 <ul>
     <li>
-        <strong>new</strong>: Creazione di un nuovo utente.
+        <strong>new</strong>: Consente la crezione di un nuovo utente.
         <ul>
-            <li>Parametri richiesti: ruolo del nuovo utente (solo se autenticato come amministratore), nome, cognome, email e password.</li>
+            <li>Parametri richiesti: ruolo del nuovo utente (per creare amministratori devi essere autenticato come amministratore) , nome, cognome, email e password.</li>
         </ul>
     </li>
 </ul>

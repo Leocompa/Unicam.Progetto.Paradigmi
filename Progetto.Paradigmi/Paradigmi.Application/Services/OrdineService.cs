@@ -75,10 +75,14 @@ namespace Paradigmi.Application.Services
                 }
             }
 
-            int nPastiCompleti = elencoPortate
-                .Where(kv => _keyScontabili.Contains(kv.Key))
-                .Select(kv => kv.Value.Count)
-                .Min();
+            int nPastiCompleti =
+                _keyScontabili.All(tipologia =>
+                    elencoPortate.ContainsKey(tipologia) && elencoPortate[tipologia].Count > 0)
+                    ? elencoPortate
+                        .Where(kv => _keyScontabili.Contains(kv.Key))
+                        .Select(kv => kv.Value.Count)
+                        .Min()
+                    : 0;
 
             decimal costo = 0;
             decimal costoTot = 0;

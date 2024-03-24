@@ -31,6 +31,9 @@ public class OrdineController : ControllerBase
     [Route("newOrdine")]
     public IActionResult CreateOrdine(CreateOrdineRequest ordineRequest)
     {
+        var claimsIdentity = User.Identity as ClaimsIdentity;
+        var claim = claimsIdentity.Claims.FirstOrDefault(claim => claim.Type.Contains("email"));
+        string emailUtente = claim.Value;
         int pastoCompleto = 0;
         decimal costoTotaleScontato = 0;
         decimal costoTotale = 0;
@@ -46,12 +49,12 @@ public class OrdineController : ControllerBase
             portateOrdinate.Add(portata.ToEntity());
         }
 
-        int numeroOrdine = _ordineService.AddOrdine(ordineRequest.EmailUtente, portateOrdinate,
+        int numeroOrdine = _ordineService.AddOrdine(emailUtente, portateOrdinate,
             ordineRequest.IndirizzoConsegna, out costoTotaleScontato, out costoTotale, out pastoCompleto);
 
         List<CreatePortateOrdinateRigaResponse>
             portateOrdinateResponses = new List<CreatePortateOrdinateRigaResponse>();
-        foreach (var portata in portateOrdinate)
+        foreach (var portata in portateOrdinate.OrderBy(ordinata => ordinata.Turno))
         {
             portateOrdinateResponses.Add(new CreatePortateOrdinateRigaResponse(portata.PortataNome, portata.Quantita,
                 _portateOrdinateService.GetCostoPortata(numeroOrdine, portata.PortataNome)));
