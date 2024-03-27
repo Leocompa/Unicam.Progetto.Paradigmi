@@ -31,6 +31,7 @@
         <ul>
             <li>Parametri richiesti: elenco delle portate ordinate e un indirizzo di consegna (opzionale).</li>
             <li>Restituirà: numero dell'ordine, indirizzo (se presente), costo totale, costo totale scontato, informazioni sull'ordine (compreso il numero dei pasti completi).</li>
+<li>E' possibile definire da cosa deve essere composto il pasto completo nel file appsettings.json, il valore di default è : <code>"PastoCompleto": ["Antipasto" ,"Primo" ,"Secondo" ,"Contorno" ,"Dolce"]</code>, possono essere aggiunte o rimosse tipologie, se l'ordine ha almeno 1 portata per ogni tipologia il costo di quella portata sarà ridotto del 10%</li>
         </ul>
     </li>
     <li>
