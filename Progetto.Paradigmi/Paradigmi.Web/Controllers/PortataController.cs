@@ -25,14 +25,21 @@ public class PortataController : ControllerBase
     [HttpPost]
     [Route("newPortata")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    public IActionResult CreatePortata(CreatePortataRequest portataRequest, Tipologia tipologia)
+    public IActionResult CreatePortata(CreatePortataRequest portataRequest, Tipologia? tipologia)
     {
+        
         var claimsIdentity = User.Identity as ClaimsIdentity;
         string claimRuolo = claimsIdentity.Claims.First(claim => claim.Type == "ruolo").Value;
         var ruolo = RuoloExtensions.AsRuolo(claimRuolo);
         if (ruolo == Ruolo.Amministratore)
         {
-            var portata = _portateService.CreaPortata(portataRequest.Nome, portataRequest.Prezzo, tipologia);
+            if (tipologia == null)
+            {
+                return BadRequest(ResponseFactory.WithError(
+                    "devi selezionare la tipologia della portata."));
+            }
+            var portata = _portateService.CreaPortata(portataRequest.Nome, portataRequest.Prezzo, tipologia.Value);
+
 
             var response = new CreatePortataResponse();
             response.Portata = new PortataDto(portata);

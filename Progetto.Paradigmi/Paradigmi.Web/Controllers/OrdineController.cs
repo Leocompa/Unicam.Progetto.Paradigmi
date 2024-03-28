@@ -66,7 +66,7 @@ public class OrdineController : ControllerBase
     }
 
     [HttpPost]
-    [Route("get/StoricoOrdini")]
+    [Route("getStoricoOrdini")]
     public IActionResult GetOrdini(CreateStoricoRequest storicoRequest)
     {
         if (storicoRequest.RighePerPagina <= 0)
@@ -125,6 +125,12 @@ public class OrdineController : ControllerBase
             {
                 storicoResponse.Add(new CreateStoricoOrdineResponse(ordine.ClienteEmail, ordine.DataOrdine,
                     ordine.NumeroOrdine, ordine.IndirizzoConsegna));
+            }
+
+            if (totalNum < storicoRequest.PaginaCorrente)
+            {
+                return BadRequest(ResponseFactory.WithError(
+                    "Il numero della pagina cercata e' successivo o superiore al numero delle pagine totali"));
             }
 
             var response = new CreateStoricoOrdineNumPagineResponse(storicoResponse, storicoRequest.PaginaCorrente,

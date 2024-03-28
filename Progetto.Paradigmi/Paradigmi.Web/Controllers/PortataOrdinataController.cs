@@ -58,6 +58,14 @@ public class PortataOrdinataController : ControllerBase
                 {
                     portateOrdinate = _portateOrdinateService.GetPortateOrdine(numeroOrdine);
                 }
+                else
+                {
+                    return BadRequest(ResponseFactory.WithError("il numero dell'ordine non e' tra i tuoi ordini effettuati"));
+                }
+            }
+            else
+            {
+                return BadRequest(ResponseFactory.WithError("il numero dell'ordine non e' valido."));
             }
         }
 
