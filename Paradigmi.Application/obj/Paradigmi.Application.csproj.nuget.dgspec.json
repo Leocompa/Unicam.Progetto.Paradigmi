@@ -1,0 +1,160 @@
+{
+  "format": 1,
+  "restore": {
+    "/Users/leonardo/Workspace - Projects Coding/Unicam.Project/Paradigmi/Paradigmi.Application/Paradigmi.Application.csproj": {}
+  },
+  "projects": {
+    "/Users/leonardo/Workspace - Projects Coding/Unicam.Project/Paradigmi/Paradigmi.Application/Paradigmi.Application.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/leonardo/Workspace - Projects Coding/Unicam.Project/Paradigmi/Paradigmi.Application/Paradigmi.Application.csproj",
+        "projectName": "Paradigmi.Application",
+        "projectPath": "/Users/leonardo/Workspace - Projects Coding/Unicam.Project/Paradigmi/Paradigmi.Application/Paradigmi.Application.csproj",
+        "packagesPath": "/Users/leonardo/.nuget/packages/",
+        "outputPath": "/Users/leonardo/Workspace - Projects Coding/Unicam.Project/Paradigmi/Paradigmi.Application/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/leonardo/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "/usr/local/share/dotnet/library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/Users/leonardo/Workspace - Projects Coding/Unicam.Project/Paradigmi/Paradigmi.Models/Paradigmi.Models.csproj": {
+                "projectPath": "/Users/leonardo/Workspace - Projects Coding/Unicam.Project/Paradigmi/Paradigmi.Models/Paradigmi.Models.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "FluentValidation.AspNetCore": {
+              "target": "Package",
+              "version": "[11.3.0, )"
+            },
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[8.0.3, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.3, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[8.0.3, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[6.5.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.100/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/leonardo/Workspace - Projects Coding/Unicam.Project/Paradigmi/Paradigmi.Models/Paradigmi.Models.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/leonardo/Workspace - Projects Coding/Unicam.Project/Paradigmi/Paradigmi.Models/Paradigmi.Models.csproj",
+        "projectName": "Paradigmi.Models",
+        "projectPath": "/Users/leonardo/Workspace - Projects Coding/Unicam.Project/Paradigmi/Paradigmi.Models/Paradigmi.Models.csproj",
+        "packagesPath": "/Users/leonardo/.nuget/packages/",
+        "outputPath": "/Users/leonardo/Workspace - Projects Coding/Unicam.Project/Paradigmi/Paradigmi.Models/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/leonardo/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "/usr/local/share/dotnet/library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[8.0.3, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.3, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[8.0.3, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[6.5.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.100/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
